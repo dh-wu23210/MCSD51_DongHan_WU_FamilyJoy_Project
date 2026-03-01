@@ -1,0 +1,74 @@
+<% layout = 'layouts/nonavigated_layout' %>
+
+<div class="px-3 h-100 d-flex flex-column overflow-hidden" style="padding-top: var(--app-nav-offset-top); padding-bottom: var(--app-nav-offset-bottom);">
+  <div class="content-top">
+    <div class="content-header mb-3">
+      <h2 class="mb-1">Welcome To FamilyJoy</h2>
+      <p class="text-muted mb-0">Start your family journey in one step.</p>
+    </div>
+  </div>
+
+  <div class="content-body border rounded bg-body-tertiary p-3 flex-grow-1 mb-3 overflow-auto touch-scroll">
+    <% if (hasError) { %>
+      <div class="alert alert-danger"><%= errorMessage %></div>
+    <% } %>
+
+    <form method="post" action="/register-family" id="createFamilyForm">
+      <div class="mb-3">
+        <label class="form-label">Family Name <span class="text-danger">*</span></label>
+        <input type="text" name="familyName" class="form-control" placeholder="e.g., The Smiths" value="<%= formValues.familyName %>" required maxlength="50">
+        <small class="form-text text-muted">Your Family Display Name.</small>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Family Code <span class="text-danger">*</span></label>
+        <input type="text" name="familyCode" id="familyCodeInput" class="form-control text-uppercase" placeholder="e.g., SMT1" value="<%= formValues.familyCode %>" required minlength="4" maxlength="4" pattern="[A-Za-z0-9]{4}">
+        <small class="form-text text-muted">Exactly 4 Letters or Numbers.</small>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Your Username <span class="text-danger">*</span></label>
+        <div class="input-group">
+          <span class="input-group-text font-monospace" id="usernamePrefix">CODE_</span>
+          <input type="text" name="username" id="usernameInput" class="form-control font-monospace" placeholder="admin" value="<%= formValues.username %>" required pattern="[a-zA-Z0-9_]+">
+        </div>
+        <small class="form-text text-muted">
+          Full Login Username:
+          <strong><span id="fullUsernamePreview">CODE_username</span></strong>
+        </small>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Password <span class="text-danger">*</span></label>
+        <input type="password" name="password" id="passwordInput" class="form-control" placeholder="Enter Password" required minlength="6">
+        <small class="form-text text-muted">At Least 6 Characters.</small>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
+        <input type="password" name="confirmPassword" id="confirmPasswordInput" class="form-control" placeholder="Confirm Password" required minlength="6">
+        <small class="form-text text-muted" id="passwordMatch">Please Re-enter Your Password.</small>
+      </div>
+
+      <div class="card bg-light p-3 mb-4">
+        <small>
+          <strong>Summary:</strong>
+          <ul class="mb-0 mt-2">
+            <li>Your Login Username: <code id="previewUsername">CODE_username</code></li>
+            <li>After Creation, You Can Add Family Members.</li>
+            <li>Each Member Gets A Separate Username And Password.</li>
+          </ul>
+        </small>
+      </div>
+
+      <%- include('../../partials/submit_button', { id: 'createBtn', text: 'Create My Family', loadingText: 'Creating Family...', size: 'lg', fullWidth: true }) %>
+    </form>
+
+    <div class="text-center mt-4">
+      <p class="text-muted mb-1">Already Have An Account?</p>
+      <a href="/login">Login Here</a>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/script', { src: '/js/pages/register_family.js' }) %>

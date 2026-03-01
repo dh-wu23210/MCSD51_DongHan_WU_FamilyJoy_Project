@@ -1,0 +1,15 @@
+<% layout = 'layouts/nonavigated_layout' %>
+
+<div class="container py-5">
+	<div class="row justify-content-center">
+		<div class="col-12 col-sm-10 col-md-6 col-lg-4">
+			<div class="card mt-5 p-4 shadow-sm">
+				<h2 class="mb-3 text-danger">Error</h2>
+				<div class="alert alert-light border mb-3" role="alert">
+					<%= (typeof errorMessage !== 'undefined' && errorMessage) ? errorMessage : ((typeof error !== 'undefined' && error) ? error : 'An unexpected error occurred.') %>
+				</div>
+				<a href="/dashboard" class="btn btn-outline-secondary">Back Home</a>
+			</div>
+		</div>
+	</div>
+</div>

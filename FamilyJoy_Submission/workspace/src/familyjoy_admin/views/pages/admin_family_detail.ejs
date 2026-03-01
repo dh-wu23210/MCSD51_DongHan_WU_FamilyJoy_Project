@@ -1,0 +1,47 @@
+<div class="admin-page-head">
+  <h1 class="h4 admin-page-title">Family Detail</h1>
+  <a href="/admin/families" class="btn btn-outline-secondary btn-sm">Back</a>
+</div>
+
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="row g-2">
+      <div class="col-md-4"><strong>Name:</strong> <%= detail.family.name %></div>
+      <div class="col-md-4"><strong>Code:</strong> <%= detail.family.family_code %></div>
+      <div class="col-md-4"><strong>Created:</strong> <%= detail.family.created_at %></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2 class="h6 mb-0">Members</h2>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-sm table-striped mb-0 admin-table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Nickname</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (!detail.members.length) { %>
+          <tr><td colspan="5" class="admin-empty-text">No members</td></tr>
+        <% } %>
+        <% detail.members.forEach((member) => { %>
+          <tr>
+            <td><%= member.username %></td>
+            <td><%= member.nickname || '-' %></td>
+            <td><%= member.role %></td>
+            <td><%= member.status %></td>
+            <td><%= member.created_at %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,180 @@
+<%
+layout = 'layouts/navigated_layout';
+headExtras = '<link rel="stylesheet" href="/css/family.css">';
+%>
+
+<div class="px-3 pt-4 pb-0 h-100 d-flex flex-column overflow-hidden">
+	<div class="content-top">
+		<div class="content-header text-center mb-3">
+			<h2 class="mb-1">Family Management</h2>
+			<p class="text-muted mb-0">Manage family members, roles, and account access.</p>
+		</div>
+	</div>
+
+	<div class="content-body border rounded bg-body-tertiary p-3 flex-grow-1 d-flex flex-column mb-3">
+		<% if (showAdminColumns) { %>
+			<div class="content-actions d-flex justify-content-center mb-3">
+				<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addMemberModal">Add Member</button>
+			</div>
+		<% } %>
+		<div class="family-members-scroll touch-scroll overflow-auto">
+			<div class="table-responsive d-none d-md-block">
+				<table class="table align-middle mb-0">
+					<thead>
+						<tr>
+							<th>Nickname</th>
+							<th>Username</th>
+							<th>Role</th>
+							<th>Status</th>
+							<th class="text-end">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% members.forEach(function(member) { %>
+							<tr>
+								<td><%= member.nickname %></td>
+								<td class="font-monospace"><%= member.username %></td>
+								<td><%= member.roleLabel %></td>
+								<td>
+									<div class="d-flex align-items-center gap-2 flex-wrap">
+										<% if (member.statusBadge) { %>
+											<span class="badge <%= member.statusBadge.className %>"><%= member.statusBadge.label %></span>
+										<% } %>
+										<% if (member.statusNote) { %>
+											<span class="small text-muted"><%= member.statusNote %></span>
+										<% } %>
+									</div>
+								</td>
+								<td class="text-end">
+									<% if (member.canModify) { %>
+										<div class="d-inline-flex flex-column gap-2 align-items-stretch" style="min-width: 9rem;">
+											<% member.managementActions.forEach(function(action) { %>
+												<form method="post" action="<%= action.action %>">
+													<input type="hidden" name="memberId" value="<%= member.id %>">
+													<button type="submit" class="btn btn-sm w-100 family-action-btn <%= action.buttonClass %>" data-confirm="<%= action.confirm %>"><%= action.label %></button>
+												</form>
+											<% }); %>
+										</div>
+									<% } else { %>
+										<span class="text-muted small">-</span>
+									<% } %>
+								</td>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="d-grid gap-2 d-md-none">
+				<% members.forEach(function(member) { %>
+					<div class="card">
+						<div class="card-body">
+							<%
+								const resetAction = (member.managementActions || []).find(function(action) { return action.key === 'reset'; });
+								const deleteAction = (member.managementActions || []).find(function(action) { return action.key === 'delete'; });
+								const restoreAction = (member.managementActions || []).find(function(action) { return action.key === 'restore'; });
+								const statusAction = restoreAction || deleteAction || null;
+							%>
+							<div class="fw-semibold"><%= member.nickname %></div>
+							<div class="small text-muted font-monospace"><%= member.username %></div>
+							<div class="small mt-1">Role: <%= member.roleLabel %></div>
+							<div class="small mt-1 d-flex align-items-center justify-content-between gap-2">
+								<div class="min-w-0">
+									Password:
+									<span class="badge <%= member.passwordStatusBadge.className %> ms-1"><%= member.passwordStatusBadge.label %></span>
+									<span class="font-monospace ms-1"><%= member.passwordDisplay %></span>
+								</div>
+								<% if (resetAction) { %>
+									<form method="post" action="<%= resetAction.action %>" class="flex-shrink-0">
+										<input type="hidden" name="memberId" value="<%= member.id %>">
+										<button type="submit" class="btn btn-sm family-action-btn <%= resetAction.buttonClass %>" data-confirm="<%= resetAction.confirm %>"><%= resetAction.label %></button>
+									</form>
+								<% } %>
+							</div>
+							<div class="small mt-1 d-flex align-items-center justify-content-between gap-2">
+								<div class="min-w-0">
+									Status:
+									<% if (member.statusBadge) { %>
+										<span class="badge <%= member.statusBadge.className %>"><%= member.statusBadge.label %></span>
+									<% } %>
+									<% if (member.statusNote) { %>
+										<span class="text-muted ms-1"><%= member.statusNote %></span>
+									<% } %>
+								</div>
+								<% if (statusAction) { %>
+									<form method="post" action="<%= statusAction.action %>" class="flex-shrink-0">
+										<input type="hidden" name="memberId" value="<%= member.id %>">
+										<button type="submit" class="btn btn-sm family-action-btn <%= statusAction.buttonClass %>" data-confirm="<%= statusAction.confirm %>"><%= statusAction.label %></button>
+									</form>
+								<% } %>
+							</div>
+							<% if (!member.canModify) { %>
+								<div class="mt-2">
+									<span class="text-muted small">No Management Actions</span>
+								</div>
+							<% } %>
+						</div>
+					</div>
+				<% }); %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% if (showAdminColumns) { %>
+	<div class="modal fade" id="addMemberModal" tabindex="-1" aria-hidden="true" data-open="<%= openAddMemberAttr %>">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Add Family Member</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form id="addMemberForm" method="post" action="/family/add-member">
+					<div class="modal-body">
+						<% if (hasAddMemberError) { %>
+							<div class="alert alert-danger"><%= addMemberError %></div>
+						<% } %>
+						<div class="mb-3">
+							<label class="form-label">Username</label>
+							<div class="input-group">
+								<span class="input-group-text font-monospace"><%= familyCode %>_</span>
+								<input name="username" id="usernameInput" type="text" class="form-control font-monospace" value="<%= addMemberUsernameValue %>" pattern="[a-zA-Z0-9_]+" required>
+							</div>
+							<small class="form-text text-muted">Login username: letters, numbers, and underscore only. Full format will be: <strong><%= familyCode %>_username</strong></small>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Role</label>
+							<%
+								const selectedRoleOption = (addMemberRoleOptions || []).find(function(option) { return option.isSelected; }) || { value: 'child' };
+								const selectedRoleValue = selectedRoleOption.value || 'child';
+							%>
+							<input type="hidden" name="role" id="roleInput" value="<%= selectedRoleValue %>">
+							<div class="btn-group w-100" role="group" aria-label="Role selector">
+								<button
+									type="button"
+									class="btn <%= selectedRoleValue === 'child' ? 'btn-primary' : 'btn-outline-secondary' %>"
+									data-role-option="child"
+									aria-pressed="<%= selectedRoleValue === 'child' ? 'true' : 'false' %>">Child</button>
+								<button
+									type="button"
+									class="btn <%= selectedRoleValue === 'parent' ? 'btn-primary' : 'btn-outline-secondary' %>"
+									data-role-option="parent"
+									aria-pressed="<%= selectedRoleValue === 'parent' ? 'true' : 'false' %>">Parent</button>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" type="submit" id="submitBtn">Create Member Account</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+<% } %>
+
+<div id="page-toast" class="d-none" data-message="<%= message || '' %>" data-error="<%= error || '' %>"></div>
+<%- include('../../partials/script', { src: '/js/pages/family.js', type: 'module' }) %>
+
+
+

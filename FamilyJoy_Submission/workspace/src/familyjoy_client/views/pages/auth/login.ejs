@@ -1,0 +1,48 @@
+<% layout = 'layouts/nonavigated_layout' %>
+
+<div class="container h-100 d-flex align-items-center">
+	<div class="row justify-content-center w-100">
+		<div class="col-12 col-sm-10 col-md-6 col-lg-4">
+			<div class="card p-3">
+		  <h2 class="title">Login</h2>
+		  <% if (hasMessage) { %>
+		    <div class="alert alert-success"><%= message %></div>
+		  <% } %>
+		  <% if (hasError) { %>
+		    <div class="alert alert-danger"><%= error %></div>
+		  <% } %>
+		  <form method="post" action="/login" autocomplete="on" id="loginForm">
+		    <div class="mb-3">
+		      <label class="form-label">Username</label>
+		      <div class="position-relative">
+		        <input name="username" id="loginUsername" type="text" class="form-control font-monospace" placeholder="CODE_username" required value="<%= attemptedUsernameValue %>" autocomplete="username">
+		        <div
+              id="loginUsernameHistoryPanel"
+              class="d-none position-absolute top-100 start-0 end-0 mt-1 bg-white border rounded shadow-sm overflow-auto z-3 list-group"
+              role="listbox"
+              aria-label="Username history"
+              style="max-height: 180px;"></div>
+		      </div>
+		      <small class="form-text text-muted">Format: CODE_username (e.g., SMTH_admin, SMTH_john)</small>
+		    </div>
+		    <div class="mb-3">
+		      <label class="form-label">Password</label>
+		      <input name="password" type="password" class="form-control" placeholder="Password" required autocomplete="current-password">
+		    </div>
+		    <div class="mb-3 form-check">
+		      <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
+		      <label class="form-check-label" for="rememberMe">
+		        Remember me <small class="text-muted">(30 days)</small>
+		      </label>
+		    </div>
+		    <button class="btn btn-primary w-100" type="submit">Login</button>
+		  </form>
+		  <p class="muted mt-3 text-center">
+		    <small>No family yet? <a href="/register-family">Create one now</a></small>
+		  </p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%- include('../../partials/script', { src: '/js/pages/login.js' }) %>

@@ -1,0 +1,42 @@
+<%
+layout = 'layouts/navigated_layout';
+headExtras = '<link rel="stylesheet" href="/css/child-dashboard.css">';
+%>
+
+<div class="px-3 pt-4 pb-0 h-100 d-flex flex-column overflow-hidden">
+  <div class="content-top">
+    <div class="content-header mb-3">
+      <h2 class="mb-1">Backpack</h2>
+      <p class="text-muted mb-0">All reward items you own are listed here.</p>
+    </div>
+  </div>
+
+  <div class="content-body border rounded bg-body-tertiary p-3 flex-grow-1 d-flex flex-column mb-3 overflow-hidden">
+    <div id="backpackDetail" class="fj-backpack-detail">
+      <p id="backpackDetailEmpty" class="text-muted mb-0">Select an item to preview.</p>
+      <div id="backpackDetailContent" class="d-none d-flex align-items-start gap-3">
+        <div class="fj-backpack-detail-icon">
+          <i id="backpackDetailIcon" class="bi bi-gift"></i>
+        </div>
+        <div class="min-w-0 w-100">
+          <div id="backpackDetailName" class="fw-semibold">Reward</div>
+          <div id="backpackDetailDescription" class="text-muted small">No Description</div>
+          <div id="backpackDetailQuantity" class="small mt-1">Quantity: x0</div>
+          <div class="mt-2">
+            <button id="backpackWishButton" type="button" class="btn btn-primary btn-sm">Make Wish</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="my-3 flex-shrink-0">
+    <div class="fj-backpack-grid-scroll flex-grow-1 touch-scroll overflow-auto">
+      <div id="backpackGrid" class="fj-backpack-grid"></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-toast" class="d-none" data-message="<%= message || '' %>" data-error="<%= error || '' %>"></div>
+<script>
+  window.__backpackItems = <%- backpackJson %>;
+</script>
+<%- include('../../partials/script', { src: '/js/pages/child_backpack.js', type: 'module' }) %>

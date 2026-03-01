@@ -1,0 +1,353 @@
+<%
+layout = 'layouts/navigated_layout';
+headExtras = '<link rel="stylesheet" href="/css/quest.css">';
+%>
+
+<div class="px-3 pt-4 pb-0 h-100 d-flex flex-column overflow-hidden">
+  <% const activeChildId = String(selectedChildId || 'all'); %>
+  <div class="content-top">
+    <div class="content-header mb-3">
+      <h2 class="mb-1">Quest</h2>
+      <p class="text-muted mb-0">Create quests and guide your child’s journey.</p>
+    </div>
+  </div>
+
+  <% if (isParent && !hasChildren) { %>
+    <div class="content-body border rounded bg-body-tertiary p-3 flex-grow-1 d-flex flex-column mb-3 overflow-hidden">
+      <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="border rounded-3 p-3 text-center" style="max-width: 320px;">
+          <div class="fw-semibold mb-1">No Child Member Yet</div>
+          <div class="text-muted small mb-3">Add your first child before managing quests.</div>
+          <a href="/family" class="btn btn-primary btn-sm">Add Child</a>
+        </div>
+      </div>
+    </div>
+  <% } else if (isParent && allChildrenView) { %>
+    <div class="content-body border rounded bg-body-tertiary p-3 flex-grow-1 d-flex flex-column mb-3 overflow-hidden">
+      <% if (isParent) { %>
+        <div class="content-actions mb-3">
+          <div class="quest-parent-tabs-wrap">
+            <button type="button" class="btn btn-sm btn-outline-secondary quest-parent-tabs-arrow" data-quest-tabs-scroll="left" aria-label="Scroll Left">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <div class="quest-parent-tabs-scroll touch-scroll" data-quest-tabs-scroll-container>
+              <div class="nav nav-tabs quest-parent-tabs-list flex-nowrap" role="tablist" aria-label="Quest Scope Tabs">
+                <a class="nav-link <%= activeChildId === 'all' ? 'active' : '' %>" href="/quest?childId=all&panel=book">Library</a>
+                <% (children || []).forEach(function(child) { %>
+                  <% const childId = String(child.id); %>
+                  <a class="nav-link <%= activeChildId === childId ? 'active' : '' %>" href="/quest?childId=<%= encodeURIComponent(child.id) %>&tab=<%= assignView && assignView.activeTab ? assignView.activeTab : 'today' %>"><%= child.displayName || child.username || 'Child' %></a>
+                <% }); %>
+              </div>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary quest-parent-tabs-arrow" data-quest-tabs-scroll="right" aria-label="Scroll Right">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      <% } %>
+
+      <div class="touch-scroll overflow-auto h-100">
+        <% if (allChildrenView.panel === 'book') { %>
+          <% allChildrenView.categorySections.forEach(function(section, idx) { const panelId = 'quest-book-panel-' + idx; %>
+            <div class="mb-4 quest-book-category" data-quest-book-category data-quest-book-category-key="<%= section.category %>">
+              <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                <div class="d-flex align-items-center gap-2 min-w-0">
+                  <a
+                    class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center"
+                    style="width: 1.75rem; height: 1.75rem; padding: 0;"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#allChildrenCreateQuestModal"
+                    data-create-category="<%= section.category %>"
+                    aria-label="Create Quest In <%= section.category %>">
+                    <i class="bi bi-plus-lg"></i>
+                  </a>
+                  <h5 class="text-capitalize mb-0"><%= section.category %></h5>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center flex-shrink-0"
+                  style="width: 1.75rem; height: 1.75rem; padding: 0;"
+                  data-quest-book-toggle="<%= panelId %>"
+                  aria-expanded="false"
+                  aria-label="Expand <%= section.category %> quests">
+                  <i class="bi bi-chevron-down"></i>
+                </button>
+              </div>
+              <div id="<%= panelId %>" class="d-none">
+                <% if (!section.hasItems) { %>
+                  <div class="list-group">
+                    <div class="list-group-item text-muted">No Quests In This Category.</div>
+                  </div>
+                <% } else { %>
+                  <div class="list-group">
+                    <% section.items.forEach(function(def) { %>
+                      <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start gap-2">
+                          <div class="min-w-0">
+                            <div class="fw-semibold"><%= def.name %></div>
+                            <div class="text-muted small">Base Crystals: <%= def.base_crystals || 0 %></div>
+                          </div>
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-outline-primary flex-shrink-0"
+                            data-bs-toggle="modal"
+                            data-bs-target="#allChildrenEditQuestModal"
+                            data-id="<%= def.id %>"
+                            data-name="<%= def.name %>"
+                            data-description="<%= def.description || '' %>"
+                            data-category="<%= def.category %>"
+                            data-base-crystals="<%= def.base_crystals || 0 %>"
+                            aria-label="Edit Quest <%= def.name %>">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                        </div>
+                      </div>
+                    <% }); %>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <% if (!(allChildrenView.groups || []).length) { %>
+            <p class="text-muted">No Submitted Quests.</p>
+          <% } else { %>
+            <% allChildrenView.groups.forEach(function(group) { %>
+              <div class="mb-4">
+                <h5 class="mb-2"><%= group.childName %></h5>
+                <div class="list-group">
+                  <% group.tasks.forEach(function(task) { %>
+                    <div class="list-group-item">
+                      <div class="fw-semibold"><%= task.quest_name || task.name %></div>
+                      <div class="text-muted small text-capitalize"><%= task.category %></div>
+                      <div class="text-muted small"><%= task.target_date %></div>
+                    </div>
+                  <% }); %>
+                </div>
+              </div>
+            <% }); %>
+          <% } %>
+        <% } %>
+      </div>
+    </div>
+  <% } else { %>
+    <div class="content-body border rounded bg-body-tertiary p-3 flex-grow-1 d-flex flex-column mb-3 overflow-hidden">
+      <% if (isParent) { %>
+        <div class="content-actions mb-3">
+          <div class="quest-parent-tabs-wrap">
+            <button type="button" class="btn btn-sm btn-outline-secondary quest-parent-tabs-arrow" data-quest-tabs-scroll="left" aria-label="Scroll Left">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <div class="quest-parent-tabs-scroll touch-scroll" data-quest-tabs-scroll-container>
+              <div class="nav nav-tabs quest-parent-tabs-list flex-nowrap" role="tablist" aria-label="Quest Scope Tabs">
+                <a class="nav-link <%= activeChildId === 'all' ? 'active' : '' %>" href="/quest?childId=all&panel=book">Library</a>
+                <% (children || []).forEach(function(child) { %>
+                  <% const childId = String(child.id); %>
+                  <a class="nav-link <%= activeChildId === childId ? 'active' : '' %>" href="/quest?childId=<%= encodeURIComponent(child.id) %>&tab=<%= assignView && assignView.activeTab ? assignView.activeTab : 'today' %>"><%= child.displayName || child.username || 'Child' %></a>
+                <% }); %>
+              </div>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary quest-parent-tabs-arrow" data-quest-tabs-scroll="right" aria-label="Scroll Right">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      <% } %>
+
+      <div class="content-actions mb-3">
+        <% if (assignView) { %>
+          <div class="nav nav-tabs gap-2" role="tablist" aria-label="Quest Day Tabs" data-active-tab="<%= assignView.activeTab %>">
+            <% assignView.sections.forEach(function(section) { %>
+              <button
+                class="<%= section.tabClass %>"
+                id="<%= section.tabId %>-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#<%= section.tabId %>"
+                data-day="<%= section.key %>"
+                type="button"
+                role="tab"><%= section.label %></button>
+            <% }); %>
+          </div>
+        <% } %>
+      </div>
+
+      <% if (assignView) { %>
+        <div class="tab-content quest-tab-content">
+          <% assignView.sections.forEach(function(section) { %>
+              <div class="<%= section.paneClass %> h-100 quest-tab-pane" id="<%= section.tabId %>" role="tabpanel">
+              <div class="quest-assign-pane h-100 d-flex flex-column">
+                <button
+                  type="button"
+                  class="quest-assign-bar mb-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#assignQuestModal"
+                  data-assign-day="<%= section.key %>"
+                  aria-label="Add Quest For <%= section.label %>">
+                  <span class="quest-assign-bar-icon text-primary">
+                    <i class="bi bi-plus-lg"></i>
+                  </span>
+                </button>
+
+                <div class="quest-assign-list flex-grow-1 overflow-auto touch-scroll">
+                  <% if (!section.hasItems) { %>
+                    <p class="text-muted"><%= section.emptyText %></p>
+                  <% } else { %>
+                    <div class="list-group quest-task-list">
+                      <% section.items.forEach(function(item) { %>
+                        <%- include('../../partials/quest_assign_item', { item: item, activeChildId: assignView.activeChildId, tabKey: section.key }) %>
+                      <% }); %>
+                    </div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+</div>
+
+<div id="page-toast" class="d-none" data-message="<%= message || '' %>" data-error="<%= error || '' %>"></div>
+
+<% if (isParent && allChildrenView && allChildrenView.panel === 'book') { %>
+  <div class="modal fade" id="allChildrenCreateQuestModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create Quest</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="post" action="/quest/book/create">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input class="form-control" name="name" maxlength="120" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" name="description" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Category</label>
+              <div id="allChildrenCreateQuestCategoryLabel" class="fw-semibold text-capitalize text-muted">-</div>
+              <input type="hidden" id="allChildrenCreateQuestCategory" name="category" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Base Crystals</label>
+              <input class="form-control" name="baseCrystals" type="number" min="1" max="100" value="1" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="allChildrenEditQuestModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Quest</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="post" action="" id="allChildrenEditQuestForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input class="form-control" name="name" id="allChildrenEditQuestName" maxlength="120" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" name="description" id="allChildrenEditQuestDescription" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Category</label>
+              <div id="allChildrenEditQuestCategoryLabel" class="fw-semibold text-capitalize text-muted">-</div>
+              <input type="hidden" id="allChildrenEditQuestCategory" name="category" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Base Crystals</label>
+              <input class="form-control" name="baseCrystals" id="allChildrenEditQuestBaseCrystals" type="number" min="1" max="100" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              class="btn btn-outline-danger me-auto"
+              id="allChildrenDeleteQuestBtn"
+              formaction=""
+              formnovalidate
+              data-confirm="Delete this quest?"
+              data-confirm-title="Delete Quest"
+              data-confirm-text="Delete">Delete</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-confirm="Save changes to this quest?"
+              data-confirm-title="Save Quest"
+              data-confirm-text="Save">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<% } %>
+
+<% if (assignView && assignView.hasChildren && assignView.hasActiveChild) { %>
+  <div class="modal fade" id="assignQuestModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md assign-quest-modal-dialog">
+      <div class="modal-content assign-quest-modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Quest</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="post" action="/quest/assign/add" class="assign-quest-modal-form">
+          <div class="modal-body assign-quest-modal-body">
+            <input type="hidden" name="childId" value="<%= assignView.activeChild.id %>">
+            <div class="mb-3">
+              <label class="form-label">Day</label>
+              <input type="hidden" name="day" id="assignQuestDay" value="<%= assignView.activeTab %>">
+              <div
+                class="fw-semibold"
+                id="assignQuestDayLabel"
+                data-today-text="<%= assignView.todayLabel %>"
+                data-tomorrow-text="<%= assignView.tomorrowLabel %>">
+                <%= assignView.activeTabLabel %>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Category</label>
+              <div id="assignQuestCategoryButtons" class="assign-quest-category-grid"></div>
+            </div>
+            <div class="mb-0 assign-quest-options-section">
+              <label class="form-label">Quest</label>
+              <input type="hidden" id="assignQuestDefinition" name="questDefinitionId" required>
+              <div class="list-group overflow-auto touch-scroll" id="assignQuestDefinitionList"></div>
+              <div class="small text-muted mt-2 d-none" id="assignQuestEmpty">No quests available in this category.</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="assignQuestSubmit">Assign</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" id="assignQuestCategoriesByDay"><%- JSON.stringify(assignView.assignCategoriesByDay || {}) %></script>
+  <script type="application/json" id="assignQuestOptionsByDay"><%- JSON.stringify(assignView.assignOptionsByDay || {}) %></script>
+<% } %>
+
+<% if (assignView) { %>
+  <%- include('../../partials/script', { src: '/js/pages/quest_assign.js', type: 'module' }) %>
+<% } %>
+
+<% if (isParent) { %>
+  <%- include('../../partials/script', { src: '/js/pages/quest_home.js', type: 'module' }) %>
+<% } %>
+
+

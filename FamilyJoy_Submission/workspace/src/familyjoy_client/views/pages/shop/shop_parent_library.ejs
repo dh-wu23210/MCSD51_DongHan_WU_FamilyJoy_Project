@@ -1,0 +1,170 @@
+<%
+layout = 'layouts/navigated_layout';
+%>
+
+<div class="px-3 pt-4 pb-0 h-100 d-flex flex-column overflow-hidden">
+  <div class="content-top">
+    <div class="content-header mb-3">
+      <h2 class="mb-1">Reward Library</h2>
+      <p class="text-muted mb-0">Create and edit reusable reward definitions for your family.</p>
+    </div>
+    <div class="content-actions mb-3 d-flex gap-2">
+      <a href="/shop" class="btn btn-outline-secondary" aria-label="Back">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#createRewardModal">
+        <i class="bi bi-plus-lg"></i> New Reward
+      </button>
+    </div>
+  </div>
+
+  <div class="content-body border rounded bg-body-tertiary p-3 flex-grow-1 d-flex flex-column mb-3 overflow-hidden">
+    <% if (!hasRewards) { %>
+      <p class="text-muted">No rewards yet. Create your first reward.</p>
+    <% } %>
+
+    <div class="list-group h-100 overflow-auto touch-scroll">
+      <% rewards.forEach(function(reward) { %>
+        <div class="list-group-item d-flex justify-content-between align-items-start">
+          <div>
+            <div class="fw-semibold"><%= reward.name %></div>
+            <div class="text-muted small"><%= reward.description %></div>
+            <div class="text-muted small">Price: <%= reward.priceLabel %></div>
+            <div class="text-muted small">
+              <i class="bi <%= reward.iconClass %>"></i> <%= reward.icon_key %>
+            </div>
+            <% if (reward.isInactive) { %>
+              <span class="badge text-bg-secondary mt-2"><%= reward.statusLabel.toLowerCase() %></span>
+            <% } %>
+          </div>
+          <div class="d-flex gap-2">
+            <button
+              class="btn btn-outline-primary btn-sm"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#editRewardModal"
+              data-id="<%= reward.id %>"
+              data-name="<%= reward.name %>"
+              data-description="<%= reward.description %>"
+              data-price="<%= reward.price %>"
+              data-icon-key="<%= reward.icon_key %>">
+              Edit
+            </button>
+            <form method="post" action="/shop/reward/toggle/<%= reward.id %>">
+              <button class="btn btn-outline-secondary btn-sm" type="submit">Toggle Active</button>
+            </form>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</div>
+
+<!-- Create Reward Modal -->
+<div class="modal fade" id="createRewardModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Reward</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" action="/shop/reward/create">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input class="form-control" name="name" maxlength="50" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <input class="form-control" name="description" maxlength="120" value="Magic Gift" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Price (crystals)</label>
+            <input class="form-control" name="price" type="number" min="1" max="9999" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Icon</label>
+            <input type="hidden" name="iconKey" id="createIconKey" value="gift">
+            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#iconPickerModal" data-form-id="createRewardForm">
+              Choose Icon
+            </button>
+            <span id="createIconPreview" class="ms-2"><i class="bi bi-gift"></i></span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Reward Modal -->
+<div class="modal fade" id="editRewardModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Reward</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" action="" id="editRewardForm">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input class="form-control" name="name" id="editRewardName" maxlength="50" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <input class="form-control" name="description" id="editRewardDescription" maxlength="120" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Price (crystals)</label>
+            <input class="form-control" name="price" id="editRewardPrice" type="number" min="1" max="9999" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Icon</label>
+            <input type="hidden" name="iconKey" id="editRewardIcon" value="gift">
+            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#iconPickerModal" data-form-id="editRewardForm">
+              Choose Icon
+            </button>
+            <span id="editIconPreview" class="ms-2"><i class="bi bi-gift"></i></span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="page-toast" class="d-none" data-message="<%= message || '' %>" data-error="<%= error || '' %>"></div>
+<!-- Icon Picker Modal -->
+<div class="modal fade" id="iconPickerModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Choose Icon</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-2">
+          <% iconOptions.forEach(function(icon) { %>
+            <div class="col">
+              <button type="button" class="btn btn-outline-secondary w-100 d-flex flex-column align-items-center gap-1 py-2" data-icon-key="<%= icon.key %>">
+                <i class="bi <%= icon.iconClass %>"></i>
+                <div class="small text-muted"><%= icon.key %></div>
+              </button>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/script', { src: '/js/pages/parent_shop.js', type: 'module' }) %>
+
+
+
+

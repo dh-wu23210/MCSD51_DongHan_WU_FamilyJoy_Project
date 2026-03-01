@@ -1,0 +1,21 @@
+<div class="list-group-item quest-item-card d-flex justify-content-between align-items-start gap-3">
+  <div class="flex-grow-1 min-w-0">
+    <div class="d-flex align-items-center gap-2 mb-1">
+      <%- include('./status_badge', { badgeClass: task.statusBadgeClass, label: task.statusLabel }) %>
+      <div class="quest-item-title text-truncate"><%= task.name %></div>
+    </div>
+    <div class="text-muted small text-capitalize mb-1"><%= task.categoryLabel %></div>
+    <div class="quest-crystal-meta mb-1" aria-label="Quest Crystal Reward">
+      <i class="bi bi-gem fj-crystal-icon quest-crystal-icon" aria-hidden="true"></i>
+      <span class="quest-crystal-value"><%= task.earnedCrystals %>/<%= task.baseCrystals %></span>
+    </div>
+    <div class="text-muted small quest-item-description"><%= task.descriptionText %></div>
+  </div>
+  <div class="flex-shrink-0">
+    <% if (task.showSubmit) { %>
+      <form method="post" action="<%= task.submitAction %>" class="js-submit-quest" data-confirm-title="<%= task.confirmTitle %>" data-confirm-body="<%= task.confirmBody %>">
+        <button type="submit" class="btn btn-primary btn-sm"><%= task.submitText %></button>
+      </form>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="mb-3">
+  <label class="form-label">Name</label>
+  <input class="form-control" name="name" <%= nameId ? `id="${nameId}"` : '' %> maxlength="50" required>
+</div>
+<div class="mb-3">
+  <label class="form-label">Description</label>
+  <input class="form-control" name="description" <%= descriptionId ? `id="${descriptionId}"` : '' %> maxlength="120" value="<%= descriptionValue %>" required>
+</div>
+<div class="mb-3">
+  <label class="form-label">Price (crystals)</label>
+  <input class="form-control" name="price" <%= priceId ? `id="${priceId}"` : '' %> type="number" min="1" max="9999" required>
+</div>
+<div class="mb-3">
+  <label class="form-label">Icon</label>
+  <input type="hidden" name="iconKey" id="<%= iconInputId %>" value="">
+  <div class="reward-icon-preview mb-2" id="<%= iconPreviewId %>">
+    <span class="small text-muted">No icon selected</span>
+  </div>
+  <div class="row row-cols-5 g-2 reward-icon-grid" data-icon-grid data-form-id="<%= formId %>">
+    <% iconOptions.forEach(function(icon) { %>
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-outline-secondary w-100 reward-icon-cell"
+          data-icon-form-id="<%= formId %>"
+          data-icon-key="<%= icon.key %>"
+          aria-label="Select <%= icon.key %> icon">
+          <i class="bi <%= icon.iconClass %>"></i>
+        </button>
+      </div>
+    <% }); %>
+  </div>
+</div>

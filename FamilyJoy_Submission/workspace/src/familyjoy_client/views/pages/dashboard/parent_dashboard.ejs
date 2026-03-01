@@ -1,0 +1,93 @@
+<%
+layout = 'layouts/navigated_layout';
+headExtras = '<link rel="stylesheet" href="/css/parent-dashboard.css">';
+%>
+
+<div class="px-3 pt-4 pb-0 h-100 d-flex flex-column overflow-hidden">
+  <div class="content-top">
+    <div class="content-header mb-3">
+      <h2 class="mb-1">Spirit Tree</h2>
+      <p class="text-muted mb-0">Swipe to review each child's Spirit Tree.</p>
+    </div>
+  </div>
+
+  <div class="content-body border rounded bg-body-tertiary p-3 flex-grow-1 d-flex flex-column mb-3 overflow-hidden">
+    <% const sortedChildren = (children || []).slice().sort((a, b) => String(a.nickname || a.username || '').localeCompare(String(b.nickname || b.username || ''), 'en', { sensitivity: 'base' })); %>
+    <div class="all-children-spirit-viewport h-100">
+      <div id="allChildrenSpiritList" class="all-children-spirit-track">
+        <% if (!sortedChildren.length) { %>
+          <div class="w-100 h-100 d-flex align-items-center justify-content-center">
+            <div class="border rounded-3 p-3 text-center" style="max-width: 320px;">
+              <div class="fw-semibold mb-1">No Child Member Yet</div>
+              <div class="text-muted small mb-3">Add your first child to start Spirit Tree tracking.</div>
+              <a href="/family" class="btn btn-primary btn-sm">Add Child</a>
+            </div>
+          </div>
+        <% } %>
+        <% sortedChildren.forEach(function(child, index) { %>
+          <% const yesterdayRate = Math.max(0, Math.min(100, Number(child.yesterdayCompletionRate || 0))); %>
+          <% const todayRate = Math.max(0, Math.min(100, Number(child.todayCompletionRate || 0))); %>
+          <% const yesterdayLayer = yesterdayRate <= todayRate ? 2 : 1; %>
+          <% const todayLayer = todayRate <= yesterdayRate ? 2 : 1; %>
+          <div class="fj-child-spirit-card p-0" data-child-id="<%= child.id %>">
+            <div class="fj-child-spirit-tree">
+              <img src="<%= child.spiritTreeImage %>" class="w-100 h-100 object-fit-cover fj-spirit-tree-image" alt="Spirit Tree">
+              <div class="fj-child-spirit-name-overlay"><%= child.nickname || child.username || 'Child' %></div>
+              <div
+                class="fj-spirit-health-gauge"
+                style="--health-yesterday: <%= yesterdayRate %>; --health-today: <%= todayRate %>; --health-yesterday-z: <%= yesterdayLayer %>; --health-today-z: <%= todayLayer %>;"
+                aria-label="Health Scale"
+              >
+                <div class="fj-spirit-health-pill">
+                  <div class="fj-spirit-health-icon" aria-hidden="true">
+                    <i class="bi bi-heart-pulse-fill"></i>
+                  </div>
+                  <div class="fj-spirit-health-track">
+                    <div class="fj-spirit-health-fill-yesterday"></div>
+                    <div class="fj-spirit-health-fill-today"></div>
+                    <div class="fj-spirit-health-label fj-spirit-health-label-yesterday" style="--health-marker: <%= yesterdayRate %>;">
+                      <span class="fj-spirit-health-pointer fj-spirit-health-pointer-down" aria-hidden="true"></span>
+                      <span class="fj-spirit-health-label-text">YD <%= yesterdayRate %>%</span>
+                    </div>
+                    <div class="fj-spirit-health-label fj-spirit-health-label-today" style="--health-marker: <%= todayRate %>;">
+                      <span class="fj-spirit-health-pointer fj-spirit-health-pointer-up" aria-hidden="true"></span>
+                      <span class="fj-spirit-health-label-text">TD <%= todayRate %>%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="fj-wish-leaf-layer" data-child-id="<%= child.id %>"></div>
+              <div class="fj-wish-storage-layer" data-child-id="<%= child.id %>"></div>
+              <button type="button" class="btn btn-outline-secondary btn-sm all-children-side-nav all-children-side-nav-left" data-action="prev" aria-label="Previous Child">
+                <i class="bi bi-chevron-left"></i>
+              </button>
+              <button type="button" class="btn btn-outline-secondary btn-sm all-children-side-nav all-children-side-nav-right" data-action="next" aria-label="Next Child">
+                <i class="bi bi-chevron-right"></i>
+              </button>
+              <div class="all-children-progress-overlay" aria-hidden="false">
+                <div class="all-children-progress-controls">
+                  <div class="all-children-progress-bar" aria-label="Child position" style="--segment-count: <%= Math.max(sortedChildren.length, 1) %>;">
+                    <div class="all-children-progress-track">
+                      <div class="all-children-progress-segments" aria-hidden="true">
+                        <% for (let i = 0; i < Math.max(sortedChildren.length, 1); i++) { %>
+                          <span class="all-children-progress-segment <%= i === index ? 'is-active' : '' %>"></span>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-toast" class="d-none" data-message="<%= message || '' %>" data-error="<%= error || '' %>"></div>
+<script>
+  window.__children = <%- childrenJson %>;
+  window.__wishMap = <%- wishMapJson %>;
+</script>
+<%- include('../../partials/script', { src: '/js/pages/parent_dashboard.js', type: 'module' }) %>

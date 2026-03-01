@@ -1,0 +1,59 @@
+<%
+layout = 'layouts/navigated_layout';
+headExtras = '<link rel="stylesheet" href="/css/child-dashboard.css">';
+%>
+
+<div class="px-3 pt-4 pb-0 h-100 d-flex flex-column overflow-hidden">
+  <% const yesterdayRate = Math.max(0, Math.min(100, Number(yesterdayCompletionRate || 0))); %>
+  <% const todayRate = Math.max(0, Math.min(100, Number(todayCompletionRate || 0))); %>
+  <% const yesterdayLayer = yesterdayRate <= todayRate ? 2 : 1; %>
+  <% const todayLayer = todayRate <= yesterdayRate ? 2 : 1; %>
+  <div class="content-top">
+    <div class="content-header mb-3">
+      <h2 class="mb-1">Spirit Tree</h2>
+      <p class="text-muted mb-0">Place wishes to grow your Spirit Tree.</p>
+    </div>
+  </div>
+
+  <div class="content-body child-spirit-content border rounded bg-body-tertiary p-3 flex-grow-1 d-flex flex-column mb-3 overflow-hidden">
+    <div class="fj-child-spirit-stage">
+      <div class="card bg-transparent border-0 overflow-hidden fj-child-spirit-tree">
+        <img src="<%= spiritTreeImage %>" class="w-100 h-100 object-fit-cover fj-spirit-tree-image" alt="Spirit Tree">
+        <div
+          class="fj-spirit-health-gauge"
+          style="--health-yesterday: <%= yesterdayRate %>; --health-today: <%= todayRate %>; --health-yesterday-z: <%= yesterdayLayer %>; --health-today-z: <%= todayLayer %>;"
+          aria-label="Health Scale"
+        >
+          <div class="fj-spirit-health-pill">
+            <div class="fj-spirit-health-track">
+              <div class="fj-spirit-health-fill-yesterday"></div>
+              <div class="fj-spirit-health-fill-today"></div>
+              <div class="fj-spirit-health-label fj-spirit-health-label-yesterday" style="--health-marker: <%= yesterdayRate %>;">
+                <span class="fj-spirit-health-pointer fj-spirit-health-pointer-down" aria-hidden="true"></span>
+                <span class="fj-spirit-health-label-text">YD <%= yesterdayRate %>%</span>
+              </div>
+              <div class="fj-spirit-health-label fj-spirit-health-label-today" style="--health-marker: <%= todayRate %>;">
+                <span class="fj-spirit-health-pointer fj-spirit-health-pointer-up" aria-hidden="true"></span>
+                <span class="fj-spirit-health-label-text">TD <%= todayRate %>%</span>
+              </div>
+            </div>
+            <div class="fj-spirit-health-icon" aria-hidden="true">
+              <i class="bi bi-heart-pulse-fill"></i>
+            </div>
+          </div>
+        </div>
+        <div id="wishLeafLayer" class="fj-wish-leaf-layer"></div>
+        <div id="wishStorageLayer" class="fj-wish-storage-layer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-toast" class="d-none" data-message="<%= message || '' %>" data-error="<%= error || '' %>"></div>
+<script>
+  window.__wishes = <%- wishesJson %>;
+</script>
+<%- include('../../partials/script', { src: '/js/pages/child_dashboard.js', type: 'module' }) %>
+
+
+

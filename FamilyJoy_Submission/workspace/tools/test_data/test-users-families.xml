@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fixture days="10">
+  <family name="Aurora Family" familyCode="AR01" profile="high" createdDaysAgo="10" days="10">
+    <members>
+      <member username="AR01_parent" password="parent123" nickname="Aurora Parent" role="parent" isInitialPassword="0" />
+      <member username="AR01_kid_a" password="child123" nickname="Luna" role="child" />
+      <member username="AR01_kid_b" password="child123" nickname="Noah" role="child" />
+    </members>
+    <questDefinitions>
+      <quest name="Morning Reading" description="Read for 20 minutes." category="study" baseCrystals="12" />
+      <quest name="Tidy Bedroom" description="Clean and organize bedroom." category="housework" baseCrystals="15" />
+      <quest name="Family Workout" description="15-minute exercise session." category="health" baseCrystals="10" />
+      <quest name="Practice Piano" description="Practice 1 song." category="habit" baseCrystals="8" />
+    </questDefinitions>
+    <rewards>
+      <reward name="Movie Night" description="Choose tonight's movie." iconKey="gift" price="18" status="active" />
+      <reward name="Extra Game Time" description="+30 minutes game time." iconKey="game" price="22" status="active" />
+      <reward name="Favorite Snack" description="Pick one snack." iconKey="snack" price="12" status="active" />
+      <reward name="Toy Voucher" description="Small toy voucher." iconKey="gift" price="30" status="active" />
+    </rewards>
+  </family>
+
+  <family name="Meadow Family" familyCode="MD02" profile="low" createdDaysAgo="7" days="7">
+    <members>
+      <member username="MD02_parent" password="parent123" nickname="Meadow Parent" role="parent" isInitialPassword="0" />
+      <member username="MD02_kid_a" password="child123" nickname="Ivy" role="child" />
+      <member username="MD02_kid_b" password="child123" nickname="Eli" role="child" />
+    </members>
+    <questDefinitions>
+      <quest name="Math Worksheet" description="Complete 1 worksheet." category="study" baseCrystals="10" />
+      <quest name="Dish Duty" description="Wash family dishes." category="housework" baseCrystals="9" />
+      <quest name="Walk Outside" description="Walk for 20 minutes." category="health" baseCrystals="7" />
+      <quest name="Journal Entry" description="Write 5 lines." category="others" baseCrystals="6" />
+    </questDefinitions>
+    <rewards>
+      <reward name="Cartoon Time" description="Watch one cartoon episode." iconKey="game" price="14" status="active" />
+      <reward name="Sweet Treat" description="Choose one dessert." iconKey="snack" price="10" status="active" />
+      <reward name="Sticker Pack" description="Get a sticker pack." iconKey="gift" price="16" status="active" />
+      <reward name="Weekend Choice" description="Pick one weekend activity." iconKey="gift" price="25" status="active" />
+    </rewards>
+  </family>
+
+  <family name="River Family" familyCode="RV03" profile="medium" createdDaysAgo="12" days="10">
+    <members>
+      <member username="RV03_parent" password="parent123" nickname="River Parent" role="parent" isInitialPassword="0" />
+      <member username="RV03_kid_a" password="child123" nickname="Mia" role="child" />
+      <member username="RV03_kid_b" password="child123" nickname="Leo" role="child" />
+    </members>
+    <questDefinitions>
+      <quest name="Read Story" description="Read one short story." category="reading" baseCrystals="9" />
+      <quest name="Set Table" description="Prepare table before dinner." category="housework" baseCrystals="8" />
+      <quest name="Stretch Routine" description="10-minute stretch routine." category="health" baseCrystals="7" />
+      <quest name="Word Practice" description="Write 10 new words." category="study" baseCrystals="10" />
+    </questDefinitions>
+    <rewards>
+      <reward name="Music Time" description="Pick songs for 20 minutes." iconKey="music" price="13" status="active" />
+      <reward name="Playground Visit" description="Extra playground time." iconKey="sports" price="20" status="active" />
+      <reward name="Juice Treat" description="Choose one juice." iconKey="snack" price="9" status="active" />
+      <reward name="Mini Toy" description="Small surprise toy." iconKey="gift" price="18" status="active" />
+    </rewards>
+  </family>
+
+  <family name="Cedar Family" familyCode="CD04" profile="low" createdDaysAgo="15" days="10">
+    <members>
+      <member username="CD04_parent" password="parent123" nickname="Cedar Parent" role="parent" isInitialPassword="0" />
+      <member username="CD04_kid_a" password="child123" nickname="Ava" role="child" />
+      <member username="CD04_kid_b" password="child123" nickname="Kai" role="child" />
+    </members>
+    <questDefinitions>
+      <quest name="Bedtime Prep" description="Put school bag ready." category="habit" baseCrystals="6" />
+      <quest name="Room Sweep" description="Sweep bedroom floor." category="housework" baseCrystals="7" />
+      <quest name="Notebook Review" description="Review class notes." category="study" baseCrystals="8" />
+      <quest name="Water Plants" description="Water home plants." category="others" baseCrystals="5" />
+    </questDefinitions>
+    <rewards>
+      <reward name="Drawing Pack" description="Use special drawing set." iconKey="gift" price="11" status="active" />
+      <reward name="Fruit Bowl" description="Pick favorite fruit." iconKey="snack" price="8" status="active" />
+      <reward name="Story Choice" description="Choose tonight story." iconKey="book" price="10" status="active" />
+      <reward name="Weekend Badge" description="Earn weekend badge." iconKey="star" price="16" status="active" />
+    </rewards>
+  </family>
+</fixture>

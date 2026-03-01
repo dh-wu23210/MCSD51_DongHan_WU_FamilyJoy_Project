@@ -1,0 +1,13 @@
+{
+  "ui": {
+    "background": "/assets/ui-background.jpg",
+    "wishLeaf": "/assets/ui-wish-leaf.png",
+    "wishSeed": "/assets/ui-wish-seed.png",
+    "shopSeed": "/assets/ui-shop-seed.png"
+  },
+  "spiritTree": {
+    "withered": "/assets/spirit_tree_withered.jpg",
+    "sicked": "/assets/spirit_tree_sicked.jpg",
+    "healthy": "/assets/spirit_tree_healthy.jpg"
+  }
+}

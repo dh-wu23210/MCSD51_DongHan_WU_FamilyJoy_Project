@@ -1,0 +1,59 @@
+<div class="admin-page-head">
+  <h1 class="h4 admin-page-title">Audit Logs</h1>
+</div>
+
+<div class="card mb-3">
+  <div class="card-body">
+    <form method="get" action="/admin/audit-logs" class="row g-2 align-items-end">
+      <div class="col-12 col-md-4">
+        <label class="form-label mb-1" for="qUser">Username</label>
+        <input id="qUser" name="qUser" type="text" class="form-control" value="<%= data.filters.qUser %>">
+      </div>
+      <div class="col-12 col-md-4">
+        <label class="form-label mb-1" for="qFamily">Family Name</label>
+        <input id="qFamily" name="qFamily" type="text" class="form-control" value="<%= data.filters.qFamily %>">
+      </div>
+      <div class="col-12 col-md-4 admin-search-actions">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a href="/admin/audit-logs" class="btn btn-outline-secondary">Reset</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body pb-2">
+    <div class="admin-total-text">Total: <%= data.pagination.total %></div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-sm table-striped mb-0 admin-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Action</th>
+          <th>Username</th>
+          <th>Family</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (!data.rows.length) { %>
+          <tr><td colspan="5" class="admin-empty-text">No data</td></tr>
+        <% } %>
+        <% data.rows.forEach((row) => { %>
+          <tr>
+            <td><%= row.event_time %></td>
+            <td><%= row.action %></td>
+            <td><%= row.username %></td>
+            <td><%= row.family_name %></td>
+            <td><%= row.details %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer bg-white">
+    <% const queryStringFn = (page) => new URLSearchParams({ qUser: data.filters.qUser, qFamily: data.filters.qFamily, page: String(page) }).toString(); %>
+    <%- include('../partials/admin_pagination', { pagination: data.pagination, basePath: '/admin/audit-logs', queryStringFn }) %>
+  </div>
+</div>

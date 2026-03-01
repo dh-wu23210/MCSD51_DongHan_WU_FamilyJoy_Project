@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title><%= typeof title !== 'undefined' ? title : 'FamilyJoy Dashboard' %></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/app_tokens.css">
+  <link rel="stylesheet" href="/css/app_base.css">
+  <link rel="stylesheet" href="/css/app_layout.css">
+  <link rel="stylesheet" href="/css/app_modal.css">
+  <link rel="stylesheet" href="/css/app_utilities.css">
+  <% const uiBackgroundAsset = assetPath ? assetPath('ui.background') : ''; %>
+  <% const uiWishLeafAsset = assetPath ? assetPath('ui.wishLeaf') : ''; %>
+  <% const uiWishSeedAsset = assetPath ? assetPath('ui.wishSeed') : ''; %>
+  <% const uiShopSeedAsset = assetPath ? assetPath('ui.shopSeed') : ''; %>
+  <style>
+    :root {
+      <% if (uiBackgroundAsset) { %>--asset-ui-background-image: url('<%= uiBackgroundAsset %>');<% } %>
+      <% if (uiWishLeafAsset) { %>--asset-ui-wish-leaf-image: url('<%= uiWishLeafAsset %>'); --asset-ui-wish-cloud-image: url('<%= uiWishLeafAsset %>');<% } %>
+      <% if (uiWishSeedAsset) { %>--asset-ui-wish-seed-image: url('<%= uiWishSeedAsset %>');<% } %>
+      <% if (uiShopSeedAsset) { %>--asset-ui-shop-seed-image: url('<%= uiShopSeedAsset %>');<% } %>
+    }
+  </style>
+  <%- typeof headExtras !== 'undefined' ? headExtras : '' %>
+</head>
+<%
+  const headerMenu = typeof headerChildMenu !== 'undefined' ? headerChildMenu : [];
+  const headerMode = typeof headerChildMode !== 'undefined' ? headerChildMode : 'link';
+  const headerLabel = typeof headerChildLabel !== 'undefined' ? headerChildLabel : 'Select Child';
+  const headerInitial = typeof headerChildInitial !== 'undefined' ? headerChildInitial : 'C';
+  const currentHeaderChildId = typeof headerChildId !== 'undefined' ? headerChildId : '';
+  const filteredHeaderMenu = headerMenu.filter((child) => {
+    if (currentHeaderChildId) return String(child.id) !== String(currentHeaderChildId);
+    return child.label !== headerLabel;
+  });
+%>
+<body class="d-flex flex-column min-vh-100 portrait-only-app">
+  <div id="dev-device-frame" aria-hidden="true"></div>
+  <div class="app-device-viewport">
+  <!-- Fixed Header Navigation -->
+  <header class="bg-white py-2 d-flex align-items-center app-frame-fixed app-header">
+    <nav class="w-100 d-flex align-items-center justify-content-between gap-3 px-3">
+      <!-- Left: Profile -->
+      <div class="flex-shrink-0">
+        <a href="/profile" class="btn btn-sm btn-outline-secondary app-header-profile-btn app-header-control">
+          <i class="bi bi-person-circle"></i> Profile
+        </a>
+      </div>
+
+      <% if (!(typeof hideHeaderChildSwitcher !== 'undefined' && hideHeaderChildSwitcher) && user && user.role === 'parent' && headerMenu && headerMenu.length) { %>
+        <div class="dropdown flex-shrink-0">
+          <button class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-header-child-button>
+            <span class="rounded-circle bg-primary-subtle text-primary d-inline-flex align-items-center justify-content-center fw-bold app-header-child-avatar" data-header-child-initial><%= headerInitial %></span>
+            <span data-header-child-label><%= headerLabel %></span>
+          </button>
+          <div class="dropdown-menu p-2 app-header-child-menu" data-header-child-menu data-header-child-mode="<%= headerMode %>">
+            <% filteredHeaderMenu.forEach(function(child) { %>
+              <a class="dropdown-item d-flex align-items-center gap-2" href="<%= child.href || '#' %>" data-child-id="<%= child.id %>" data-child-label="<%= child.label %>" data-child-initial="<%= child.initial %>">
+                <span class="rounded-circle bg-primary-subtle text-primary d-inline-flex align-items-center justify-content-center fw-bold app-header-child-avatar-sm">
+                  <%= child.initial %>
+                </span>
+                <span class="fw-semibold"><%= child.label %></span>
+              </a>
+            <% }); %>
+          </div>
+        </div>
+      <% } %>
+      
+      <!-- Center: Resources and Currency (child only) -->
+      <% if (user && user.role === 'child') { %>
+        <div class="d-flex align-items-center gap-3 flex-shrink-0 app-header-currency-wrap">
+          <div class="d-flex align-items-center gap-2 app-header-currency-group">
+            <span class="app-header-currency app-header-control">
+              <i class="bi bi-gem fj-crystal-icon"></i> Crystal:
+              <span id="header-crystals"><%= (user && typeof user.crystalBalance !== 'undefined') ? user.crystalBalance : 0 %></span>
+            </span>
+            <span class="app-header-currency app-header-control">
+              <i class="bi bi-droplet"></i> Essence:
+              <span id="header-essence">0</span>
+            </span>
+          </div>
+        </div>
+      <% } %>
+      
+      <!-- Right: Mail -->
+      <div class="flex-shrink-0">
+        <button type="button" class="btn btn-sm btn-outline-secondary position-relative app-header-mail-btn app-header-control" data-mailbox-button aria-label="Mailbox">
+          <i class="bi bi-envelope"></i>
+          <span class="position-absolute app-header-mail-dot badge rounded-pill bg-danger d-none" id="header-mail-count" aria-label="Unread messages"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content - with top and bottom padding for fixed navs -->
+  <main class="flex-grow-1 app-content app-content-with-nav touch-scroll">
+    <div class="w-100 py-3 app-content-inner">
+      <%- body %>
+    </div>
+  </main>
+
+  <!-- Fixed Footer Navigation -->
+  <footer class="py-2 d-flex align-items-center app-frame-fixed app-footer">
+    <%- include('../partials/navigation', { current: typeof current !== 'undefined' ? current : 'dashboard', user: user }) %>
+  </footer>
+
+  <!-- Modal root for Bootstrap Modal -->
+  <div id="modal-root"></div>
+  <!-- Toast root for notifications -->
+  <div id="toast-root" class="toast-container app-device-toast-root"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="/js/main.js"></script>
+  <%- typeof scripts !== 'undefined' ? scripts : '' %>
+</body>
+</html>

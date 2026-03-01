@@ -1,0 +1,46 @@
+<div class="list-group-item quest-item-card">
+	<div class="flex-grow-1 min-w-0">
+		<div class="quest-item-title text-truncate mb-1"><%= item.name %></div>
+		<div class="text-muted small text-capitalize mb-1"><%= item.category %></div>
+		<div class="quest-crystal-meta mb-1" aria-label="Quest Crystal Reward">
+			<i class="bi bi-gem fj-crystal-icon quest-crystal-icon" aria-hidden="true"></i>
+			<span class="quest-crystal-value"><%= item.earnedCrystals %>/<%= item.baseCrystals %></span>
+		</div>
+		<div class="text-muted small quest-item-description mb-2"><%= item.descriptionText %></div>
+		<div class="d-flex align-items-center justify-content-between gap-2">
+			<div class="d-inline-flex align-items-center">
+				<%- include('./status_badge', { badgeClass: item.statusBadgeClass, label: item.statusLabel }) %>
+			</div>
+			<div class="quest-assign-actions d-flex align-items-center justify-content-end gap-2">
+				<% if (item.canApprove && activeChildId) { %>
+					<form method="post" action="/quest/review/confirm/<%= item.id %>" class="d-inline-flex">
+						<input type="hidden" name="result" value="complete">
+						<input type="hidden" name="childId" value="<%= activeChildId %>">
+						<input type="hidden" name="tab" value="<%= typeof tabKey !== 'undefined' ? tabKey : 'today' %>">
+						<button type="submit" class="btn btn-primary btn-sm d-inline-flex align-items-center justify-content-center quest-action-icon-btn" data-confirm="Approve this submitted quest?" aria-label="Approve">
+							<i class="bi bi-check-lg"></i>
+						</button>
+					</form>
+				<% } %>
+				<% if (item.canDisapprove && activeChildId) { %>
+					<form method="post" action="/quest/review/confirm/<%= item.id %>" class="d-inline-flex">
+						<input type="hidden" name="result" value="incomplete">
+						<input type="hidden" name="childId" value="<%= activeChildId %>">
+						<input type="hidden" name="tab" value="<%= typeof tabKey !== 'undefined' ? tabKey : 'today' %>">
+						<button type="submit" class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center justify-content-center quest-action-icon-btn" data-confirm="Disapprove this submitted quest?" aria-label="Disapprove">
+							<i class="bi bi-x-lg"></i>
+						</button>
+					</form>
+				<% } %>
+				<% if (item.canDelete && activeChildId) { %>
+					<form method="post" action="/quest/assign/remove" class="d-inline-flex">
+						<input type="hidden" name="childId" value="<%= activeChildId %>">
+						<input type="hidden" name="dailyQuestId" value="<%= item.id %>">
+						<input type="hidden" name="tab" value="<%= typeof tabKey !== 'undefined' ? tabKey : 'today' %>">
+						<button type="submit" class="btn btn-outline-danger btn-sm quest-action-delete-btn" data-confirm="Delete this assigned quest?">Delete</button>
+					</form>
+				<% } %>
+			</div>
+		</div>
+	</div>
+</div>

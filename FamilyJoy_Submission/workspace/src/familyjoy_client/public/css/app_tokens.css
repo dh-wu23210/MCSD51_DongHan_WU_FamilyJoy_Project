@@ -1,0 +1,51 @@
+:root {
+  --app-frame-width: 427px;
+  --app-frame-aspect-ratio: 2.23125;
+  --app-shell-bg: var(--bs-body-bg);
+  --app-shell-border-color: var(--bs-border-color);
+  --app-header-height: 60px;
+  --app-footer-height: 60px;
+  --app-footer-item-height: 2.25rem;
+  --app-header-top-offset: 56px;
+  --app-footer-bottom-offset: 40px;
+  --app-nav-offset-top: 91px;
+  --app-nav-offset-bottom: 94px;
+  --app-btn-default-bg: rgba(255, 248, 236, 0.78);
+  --app-btn-default-bg-fallback: rgba(255, 248, 236, 0.90);
+  --app-btn-default-border: rgba(217, 181, 106, 0.28);
+  --app-btn-default-color: #2f4a36;
+  --app-btn-default-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
+  --app-btn-state-bg: rgba(232, 214, 171, 0.92);
+  --app-btn-state-border: rgba(160, 126, 62, 0.52);
+  --app-btn-state-color: #3f3521;
+  --app-btn-primary-bg: rgba(232, 214, 171, 0.92);
+  --app-btn-primary-border: rgba(160, 126, 62, 0.52);
+  --app-btn-primary-color: #3f3521;
+  --app-content-surface-bg: rgba(255, 248, 236, 0.72);
+  --app-content-surface-bg-fallback: rgba(255, 248, 236, 0.88);
+  --app-content-surface-border: rgba(217, 181, 106, 0.22);
+  --app-content-surface-blur: 8px;
+  --asset-ui-background-image: url('/assets/ui-background.png');
+  --asset-ui-wish-leaf-image: url('/assets/ui-wish-leaf.png');
+  --asset-ui-wish-cloud-image: var(--asset-ui-wish-leaf-image);
+  --asset-ui-wish-seed-image: url('/assets/ui-wish-seed.png');
+  --asset-ui-shop-seed-image: url('/assets/ui-shop-seed.png');
+
+  /* Layer Scale (keep 100-step gaps for predictable stacking)
+   * 100: dev frame (visual only)
+   * 200: app shell (header/footer)
+   * 300-400: in-page overlays (card/section detail layers)
+   * 1000+: modal system (backdrop/modal/stacked modals)
+   * 1300: toast notifications
+   * 2000: global hard overlay (e.g. landscape lock message)
+   */
+  --z-layer-dev-frame: 100; /* Dev-only device frame overlay (non-interactive visual helper). */
+  --z-layer-shell: 200; /* App shell chrome: fixed header and footer nav. */
+  --z-layer-inline-backdrop: 300; /* In-page local backdrop behind section/card-level overlays. */
+  --z-layer-inline-content: 400; /* In-page local overlay content above inline backdrop. */
+  --z-layer-backdrop-base: 1000; /* Global modal backdrop base layer. */
+  --z-layer-modal-base: 1100; /* Global modal dialog base layer above backdrop. */
+  --z-layer-modal-step: 100; /* Increment step for stacked/nested modals. */
+  --z-layer-toast: 1300; /* Toast notifications above modals/backdrops. */
+  --z-layer-overlay: 2000; /* Highest-priority global blocking overlays (e.g. orientation lock). */
+}

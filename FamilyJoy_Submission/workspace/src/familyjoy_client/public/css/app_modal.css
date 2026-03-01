@@ -1,0 +1,86 @@
+.app-device-modal .modal-dialog {
+  margin-top: calc(1rem + env(safe-area-inset-top, 0px));
+  margin-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+}
+
+.portrait-only-app .modal-backdrop {
+  z-index: var(--z-layer-backdrop-base) !important;
+  width: min(100vw, var(--app-frame-width));
+  height: min(100dvh, calc(min(100vw, var(--app-frame-width)) * var(--app-frame-aspect-ratio)));
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.portrait-only-app .modal {
+  z-index: var(--z-layer-modal-base) !important;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 0.75rem);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
+}
+
+.portrait-only-app .modal-dialog {
+  margin: auto;
+  max-width: calc(min(100vw, var(--app-frame-width)) - 1.5rem);
+}
+
+/* Center modal dialogs vertically in app viewport. */
+.portrait-only-app .modal .modal-dialog {
+  min-height: calc(100% - 1.5rem);
+  display: flex;
+  align-items: center;
+}
+
+.portrait-only-app .modal-content {
+  background-color: rgba(255, 248, 236, 0.78);
+  background-image: var(--asset-ui-background-image);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: soft-light;
+  border-color: var(--app-content-surface-border);
+  -webkit-backdrop-filter: blur(var(--app-content-surface-blur));
+  backdrop-filter: blur(var(--app-content-surface-blur));
+  max-height: calc(
+    min(100dvh, calc(min(100vw, var(--app-frame-width)) * var(--app-frame-aspect-ratio)))
+    - env(safe-area-inset-top, 0px)
+    - env(safe-area-inset-bottom, 0px)
+    - 1.5rem
+  );
+  overflow: hidden;
+}
+
+.portrait-only-app .modal-body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.portrait-only-app .modal-body::-webkit-scrollbar {
+  display: none;
+}
+
+.app-device-toast-root {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(92%, 360px);
+  transform: translate(-50%, -50%);
+  z-index: var(--z-layer-toast);
+  pointer-events: none;
+}
+
+.app-device-toast-root .toast {
+  pointer-events: auto;
+}
+
+@supports not ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  .portrait-only-app .modal-content {
+    background-color: rgba(255, 248, 236, 0.90);
+    background-image: var(--asset-ui-background-image);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-blend-mode: soft-light;
+  }
+}

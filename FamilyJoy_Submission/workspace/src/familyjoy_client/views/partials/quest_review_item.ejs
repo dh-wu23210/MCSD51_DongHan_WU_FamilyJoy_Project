@@ -1,0 +1,21 @@
+<div class="list-group-item d-flex justify-content-between align-items-center">
+	<div>
+		<div class="fw-semibold"><%= task.name %></div>
+		<div class="text-muted small text-capitalize"><%= task.category %></div>
+		<div class="text-muted small"><%= task.targetDate %></div>
+	</div>
+	<div class="d-flex gap-2">
+		<form method="post" action="/quest/review/confirm/<%= task.id %>" class="js-review-form" data-confirm-title="Review Quest" data-confirm-body="Mark as complete?">
+			<input type="hidden" name="result" value="complete">
+			<button type="submit" class="btn btn-success btn-sm" aria-label="Complete">
+				<i class="bi bi-check-lg" aria-hidden="true"></i>
+			</button>
+		</form>
+		<form method="post" action="/quest/review/confirm/<%= task.id %>" class="js-review-form" data-confirm-title="Review Quest" data-confirm-body="Mark as incomplete?">
+			<input type="hidden" name="result" value="incomplete">
+			<button type="submit" class="btn btn-outline-secondary btn-sm" aria-label="Incomplete">
+				<i class="bi bi-x-lg" aria-hidden="true"></i>
+			</button>
+		</form>
+	</div>
+</div>

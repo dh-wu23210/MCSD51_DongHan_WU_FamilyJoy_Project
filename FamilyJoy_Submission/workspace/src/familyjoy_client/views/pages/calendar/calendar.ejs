@@ -1,0 +1,91 @@
+<%
+layout = 'layouts/navigated_layout';
+headExtras = '<link rel="stylesheet" href="/css/calendar.css">';
+%>
+
+<div class="px-3 pt-4 pb-0 h-100 d-flex flex-column overflow-hidden">
+  <div class="content-top">
+    <div class="content-header mb-3">
+      <h2 class="mb-1">Calendar</h2>
+      <p class="text-muted mb-0">Track daily quest completion and review task details.</p>
+    </div>
+  </div>
+
+  <div class="content-body fj-calendar-content-body border rounded bg-body-tertiary p-3 flex-grow-1 d-flex flex-column mb-3">
+    <div class="content-actions d-flex justify-content-between align-items-center mb-2">
+      <div class="small fw-semibold"><%= todayDisplayLabel %></div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary btn-sm" href="/calendar?month=<%= prevMonthParam %>" aria-label="Previous Month">
+          <i class="bi bi-chevron-left"></i>
+        </a>
+        <a class="btn btn-outline-secondary btn-sm" href="/calendar">Today</a>
+        <a class="btn btn-outline-secondary btn-sm" href="/calendar?month=<%= nextMonthParam %>" aria-label="Next Month">
+          <i class="bi bi-chevron-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="row g-1 mb-1 fj-row-cols-7">
+      <div class="col"><div class="text-center text-muted small fw-semibold bg-light rounded py-0 fj-calendar-weekday">Sun</div></div>
+      <div class="col"><div class="text-center text-muted small fw-semibold bg-light rounded py-0 fj-calendar-weekday">Mon</div></div>
+      <div class="col"><div class="text-center text-muted small fw-semibold bg-light rounded py-0 fj-calendar-weekday">Tue</div></div>
+      <div class="col"><div class="text-center text-muted small fw-semibold bg-light rounded py-0 fj-calendar-weekday">Wed</div></div>
+      <div class="col"><div class="text-center text-muted small fw-semibold bg-light rounded py-0 fj-calendar-weekday">Thu</div></div>
+      <div class="col"><div class="text-center text-muted small fw-semibold bg-light rounded py-0 fj-calendar-weekday">Fri</div></div>
+      <div class="col"><div class="text-center text-muted small fw-semibold bg-light rounded py-0 fj-calendar-weekday">Sat</div></div>
+    </div>
+
+    <div class="row g-1 fj-row-cols-7 mb-2">
+      <% calendarDays.forEach(function(day) { %>
+        <div class="col">
+          <button
+            class="btn btn-light border w-100 text-start fj-calendar-cell <%= day.cellClass %>"
+            data-date="<%= day.date %>"
+            title="Completion <%= day.completionRate %>%"
+            <%= day.disabledAttr %>>
+            <span class="fj-calendar-day-number"><%= day.dayNumber %></span>
+            <span class="fj-calendar-progress-track" aria-hidden="true">
+              <span
+                class="fj-calendar-progress-fill fj-progress-<%= day.completionRate === 100 ? 'complete' : (day.completionRate >= 50 ? 'mid' : (day.completionRate > 0 ? 'low' : 'none')) %>"
+                style="width:<%= day.completionRate %>%"></span>
+            </span>
+          </button>
+        </div>
+      <% }); %>
+    </div>
+
+    <hr class="my-2" />
+    <div class="d-flex flex-column flex-grow-1" style="min-height:0;">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h5 class="mb-0">Family Completion</h5>
+      </div>
+      <div id="calendarFamilyCompletionWrap" class="mb-2">
+        <div class="progress fj-family-completion-progress">
+          <span id="calendarFamilyCompletionText" class="fj-family-completion-text">0%</span>
+          <div
+            id="calendarFamilyCompletionBar"
+            class="progress-bar fj-family-completion-bar"
+            role="progressbar"
+            style="width: 0%;"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"></div>
+        </div>
+      </div>
+      <div id="calendarChildContent" class="calendar-details-scroll touch-scroll overflow-auto flex-grow-1"></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-toast" class="d-none" data-message="<%= message || '' %>" data-error="<%= error || '' %>"></div>
+<script>
+  window.__calendarCompletionMap = <%- completionMapJson %>;
+  window.__calendarChildren = <%- childTabsJson %>;
+  window.__calendarSelectedDate = <%- selectedDateJson %>;
+  window.__calendarActiveChildId = <%- JSON.stringify(activeChildId || '') %>;
+  window.__calendarIsParent = <%- isParentJson %>;
+  window.__calendarUserId = <%- userIdJson %>;
+</script>
+<%- include('../../partials/script', { src: '/js/pages/calendar.js', type: 'module' }) %>
+
+

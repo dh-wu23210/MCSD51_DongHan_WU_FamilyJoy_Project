@@ -1,0 +1,47 @@
+<%
+layout = 'layouts/navigated_layout';
+headExtras = '<link rel="stylesheet" href="/css/quest.css">';
+%>
+
+<div class="px-3 pt-4 pb-0 h-100 d-flex flex-column overflow-hidden">
+	<div class="content-top">
+		<div class="content-header mb-3">
+			<h2 class="mb-1">Quest Details</h2>
+			<p class="text-muted mb-0">Review quest info and submit it when ready.</p>
+		</div>
+		<div class="content-actions mb-3">
+			<a href="/quest/today" class="btn btn-outline-secondary">Back</a>
+		</div>
+	</div>
+
+	<div class="content-body border rounded bg-body-tertiary p-3 flex-grow-1 d-flex flex-column mb-3 overflow-hidden">
+		<div class="h-100 overflow-auto touch-scroll">
+			<div class="mb-3">
+				<h4 class="mb-1"><%= task.name %></h4>
+				<p class="text-muted text-capitalize mb-2"><%= task.category %></p>
+				<% if (task.hasDescription) { %>
+					<p><%= task.descriptionText %></p>
+				<% } %>
+			</div>
+
+			<div class="mb-3">
+				<span class="badge text-bg-light text-dark">Status: <%= statusLabel %></span>
+				<span class="badge text-bg-light text-dark ms-2">Date: <%= targetDateLabel %></span>
+			</div>
+
+			<% if (canSubmit) { %>
+				<form method="post" action="<%= submitAction %>" data-confirm="<%= submitConfirmText %>">
+					<button type="submit" class="btn btn-primary">Submit Quest</button>
+				</form>
+			<% } else { %>
+				<p class="text-muted"><%= submitUnavailableText %></p>
+			<% } %>
+		</div>
+	</div>
+</div>
+
+<div id="page-toast" class="d-none" data-message="<%= message || '' %>" data-error="<%= error || '' %>"></div>
+<%- include('../../partials/script', { src: '/js/pages/quest_detail.js', type: 'module' }) %>
+
+
+

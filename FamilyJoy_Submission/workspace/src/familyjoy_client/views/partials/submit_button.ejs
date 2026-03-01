@@ -1,0 +1,9 @@
+<button 
+	class="btn btn-primary <%= size === 'lg' ? 'btn-lg' : '' %> <%= fullWidth ? 'w-100' : '' %>" 
+	type="submit" 
+	id="<%= id %>">
+	<span id="<%= id %>Text"><%= text %></span>
+	<span id="<%= id %>Spinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status">
+		<span class="visually-hidden"><%= loadingText || 'Loading...' %></span>
+	</span>
+</button>

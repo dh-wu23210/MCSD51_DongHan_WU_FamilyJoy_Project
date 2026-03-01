@@ -1,0 +1,78 @@
+<div class="admin-page-head">
+  <h1 class="h4 admin-page-title">Dashboard</h1>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-secondary small">Total Users</div>
+        <div class="h4 mb-0"><%= data.totals.totalUsers %></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-secondary small">Total Families</div>
+        <div class="h4 mb-0"><%= data.totals.totalFamilies %></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-secondary small">Active Users Today</div>
+        <div class="h4 mb-0"><%= data.todayActivity.activeUsersToday %></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-secondary small">Active Families Today</div>
+        <div class="h4 mb-0"><%= data.todayActivity.activeFamiliesToday %></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-secondary small">New Users Today</div>
+        <div class="h4 mb-0"><%= data.todayNew.newUsersToday %></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-secondary small">New Families Today</div>
+        <div class="h4 mb-0"><%= data.todayNew.newFamiliesToday %></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2 class="h6 mb-0">Last 7 Days Active Users</h2>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-sm table-striped mb-0 admin-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th class="text-end">Active Users</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.trend.forEach((item) => { %>
+          <tr>
+            <td><%= item.date %></td>
+            <td class="text-end"><%= item.activeUsers %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>

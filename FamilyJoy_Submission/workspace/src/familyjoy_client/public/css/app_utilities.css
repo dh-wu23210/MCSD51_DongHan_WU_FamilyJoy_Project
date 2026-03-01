@@ -1,0 +1,71 @@
+.shop-grid-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.shop-grid-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.touch-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.shop-grid-cell {
+  min-height: 9rem;
+}
+
+.app-layer-inline-backdrop {
+  z-index: var(--z-layer-inline-backdrop);
+}
+
+.app-layer-inline-content {
+  z-index: var(--z-layer-inline-content);
+}
+
+.mailbox-list-wrap {
+  position: relative;
+}
+
+.mailbox-list-fixed {
+  height: 35rem;
+  overflow-y: auto;
+}
+
+.fj-crystal-icon {
+  color: #7c3aed;
+}
+
+.reward-icon-preview {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+}
+
+.reward-icon-grid {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.reward-icon-cell {
+  min-height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+}
+
+.reward-icon-cell i {
+  font-size: 1rem;
+}
+
+.reward-icon-cell.is-selected {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.12rem rgba(13, 110, 253, 0.2);
+}

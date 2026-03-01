@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "start": "npm start --prefix src",
+    "dev": "npm run dev --prefix src",
+    "cap:sync": "npx cap sync android",
+    "cap:sync:all": "npx cap sync",
+    "cap:open:android": "npx cap open android",
+    "cap:copy": "npx cap copy"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.4",
+    "@capacitor/cli": "^7.4.4",
+    "@capacitor/core": "^7.4.4"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.3"
+  }
+}

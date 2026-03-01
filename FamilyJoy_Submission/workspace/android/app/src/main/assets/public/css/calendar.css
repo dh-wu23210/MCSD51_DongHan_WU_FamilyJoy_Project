@@ -1,0 +1,256 @@
+.fj-calendar-cell {
+  height: 78px;
+  position: relative;
+  padding: 0.45rem 0.45rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.fj-calendar-cell-muted {
+  color: #9ca3af !important;
+  background: #f9fafb !important;
+}
+
+.fj-calendar-day-number {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  align-self: flex-start;
+}
+
+.fj-calendar-progress-track {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+  margin-top: 0.35rem;
+}
+
+.fj-calendar-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+
+.fj-progress-none {
+  background: transparent;
+}
+
+.fj-progress-low {
+  background: #f59e0b;
+}
+
+.fj-progress-mid {
+  background: #3b82f6;
+}
+
+.fj-progress-complete {
+  background: #10b981;
+}
+
+.fj-calendar-cell.fj-calendar-cell-today {
+  background: #e9edf5 !important;
+  border-color: #bcc6d8 !important;
+}
+
+.fj-calendar-cell.fj-calendar-cell-today .fj-calendar-progress-track {
+  background: #c1c9d8;
+  height: 5px;
+}
+
+.fj-calendar-cell.fj-calendar-cell-selected {
+  outline: 2px solid #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+}
+
+.fj-calendar-cell.fj-calendar-cell-selected .fj-calendar-progress-track {
+  height: 5px;
+}
+
+.fj-calendar-cell.fj-calendar-cell-selected:focus,
+.fj-calendar-cell.fj-calendar-cell-selected:focus-visible,
+.fj-calendar-cell.fj-calendar-cell-selected:active {
+  outline: 2px solid #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+}
+
+.fj-calendar-cell:focus,
+.fj-calendar-cell:focus-visible,
+.fj-calendar-cell:active {
+  outline: none;
+  box-shadow: none;
+}
+
+@media (max-width: 576px) {
+  .fj-calendar-cell {
+    height: 55px;
+    padding: 0.35rem 0.35rem 0.45rem;
+  }
+
+  .fj-calendar-day-number {
+    font-size: 0.95rem;
+  }
+}
+.fj-row-cols-7 > * {
+  flex: 0 0 auto;
+  width: 14.285714%;
+}
+
+.fj-calendar-content-body {
+  padding-top: 0.5rem !important;
+}
+
+.fj-calendar-weekday {
+  line-height: 1.1;
+  padding-top: 0.15rem !important;
+  padding-bottom: 0.15rem !important;
+}
+
+.fj-family-completion-progress {
+  height: 1rem;
+  background: #e5e7eb;
+  position: relative;
+}
+
+.fj-family-completion-bar {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.fj-family-completion-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1f2937;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.calendar-child-item-row {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  padding: 0.5rem 0.75rem;
+  min-height: 66px;
+}
+
+.calendar-child-item-row .fw-semibold {
+  font-size: 1.125rem;
+  line-height: 1.2;
+}
+
+.calendar-child-item-panel {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.calendar-empty-item {
+  min-height: 66px;
+  display: flex;
+  align-items: center;
+}
+
+.fj-quest-crystal-meta {
+  min-width: 6.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.125rem;
+}
+
+.fj-quest-crystal-icon {
+  width: 0.9rem;
+  text-align: center;
+}
+
+.fj-quest-crystal-value {
+  min-width: 4.25rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.fj-calendar-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.12rem 0.35rem;
+  width: 4.9rem;
+  min-width: 4.9rem;
+  font-size: 0.69rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.fj-calendar-status-assigned {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.fj-calendar-status-submitted {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.fj-calendar-status-incomplete {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.fj-calendar-status-complete {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.calendar-child-shell {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.calendar-child-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.calendar-child-controls {
+  position: relative;
+  width: 1.75rem;
+  min-width: 1.75rem;
+  display: flex;
+  align-items: stretch;
+}
+
+.calendar-child-rail-track {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  top: calc(var(--expand-btn-top, 0px) + 1.75rem + 0.4rem);
+  bottom: calc(100% - var(--collapse-btn-top, 0px) + 1.75rem + 0.4rem);
+  border-radius: 999px;
+  background: #d1d5db;
+  min-height: 24px;
+}
+
+.calendar-expand-btn {
+  position: absolute;
+  left: 0;
+  top: var(--expand-btn-top, 0px);
+}
+
+.calendar-collapse-btn {
+  position: absolute;
+  left: 0;
+  top: var(--collapse-btn-top, 0px);
+}

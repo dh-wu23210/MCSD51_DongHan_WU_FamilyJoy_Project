@@ -1,0 +1,187 @@
+/* Base reset -------------------------------------------------------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+#dev-device-frame {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: min(100vw, var(--app-frame-width));
+  height: min(100dvh, calc(min(100vw, var(--app-frame-width)) * var(--app-frame-aspect-ratio)));
+  transform: translateX(-50%);
+  border: 1px solid var(--app-shell-border-color);
+  pointer-events: none;
+  z-index: var(--z-layer-dev-frame);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #dev-device-frame {
+    display: block;
+  }
+}
+
+.portrait-only-app {
+  overflow: hidden;
+}
+
+.portrait-only-app .app-device-viewport {
+  position: relative;
+  width: min(100vw, var(--app-frame-width));
+  height: min(100dvh, calc(min(100vw, var(--app-frame-width)) * var(--app-frame-aspect-ratio)));
+  margin: 0 auto;
+  overflow: hidden;
+  background-image: var(--asset-ui-background-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.portrait-only-app .app-content {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background-image: var(--asset-ui-background-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.app-content-with-nav {
+  padding-top: var(--app-nav-offset-top);
+  padding-bottom: var(--app-nav-offset-bottom);
+}
+
+.app-content-inner {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (orientation: landscape) {
+  .portrait-only-app {
+    overflow: hidden;
+  }
+
+  .portrait-only-app > * {
+    visibility: hidden;
+  }
+
+  .portrait-only-app::before {
+    content: "Portrait mode only. Rotate your device to continue.";
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-layer-overlay);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background: #f8f9fa;
+    color: #212529;
+    font-weight: 600;
+  }
+}
+
+/* Parent scope tabs ------------------------------------------------------- */
+.fj-parent-tabs-wrap {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.fj-parent-tabs-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.fj-parent-tabs-list {
+  flex-wrap: nowrap;
+  width: max-content;
+  min-width: 100%;
+  border-bottom: 1px solid var(--app-btn-default-border);
+  gap: 0.15rem;
+}
+
+.fj-parent-tabs-list .nav-link {
+  white-space: nowrap;
+  width: 7.25rem;
+  min-width: 7.25rem;
+  max-width: 7.25rem;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 1px solid rgba(160, 126, 62, 0.42);
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+  background: rgba(255, 248, 236, 0.94);
+  color: #334937;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  padding: 0.45rem 0.65rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: -1px;
+}
+
+.fj-parent-tabs-list .nav-link:hover,
+.fj-parent-tabs-list .nav-link:focus {
+  border-color: var(--app-btn-state-border);
+  color: var(--app-btn-state-color);
+}
+
+.fj-parent-tabs-list .nav-link.active {
+  background: var(--app-btn-state-bg);
+  border-color: var(--app-btn-state-border);
+  color: var(--app-btn-state-color);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(1px);
+}
+
+.fj-parent-tabs-arrow {
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fj-shop-placeholder-bar {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--app-btn-primary-border);
+  background: var(--app-btn-primary-bg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: center;
+  justify-items: center;
+  column-gap: 0.25rem;
+  padding: 0.15rem 0.5rem;
+}
+
+.fj-shop-placeholder-seed {
+  width: auto;
+  height: calc(100% - 0.1rem);
+  aspect-ratio: 1 / 1;
+  max-height: 45px;
+  display: inline-block;
+  background-image: var(--asset-ui-shop-seed-image);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}

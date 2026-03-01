@@ -1,0 +1,15 @@
+<% if (pagination) { %>
+  <nav aria-label="Pagination">
+    <ul class="pagination pagination-sm mb-0">
+      <% const prevPage = Math.max(1, pagination.page - 1); %>
+      <li class="page-item <%= pagination.page <= 1 ? 'disabled' : '' %>">
+        <a class="page-link" href="<%= basePath %>?<%= queryStringFn(prevPage) %>">Prev</a>
+      </li>
+      <li class="page-item disabled"><span class="page-link">Page <%= pagination.page %> / <%= pagination.totalPages %></span></li>
+      <% const nextPage = Math.min(pagination.totalPages, pagination.page + 1); %>
+      <li class="page-item <%= pagination.page >= pagination.totalPages ? 'disabled' : '' %>">
+        <a class="page-link" href="<%= basePath %>?<%= queryStringFn(nextPage) %>">Next</a>
+      </li>
+    </ul>
+  </nav>
+<% } %>

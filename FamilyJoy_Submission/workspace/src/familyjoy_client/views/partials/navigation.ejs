@@ -1,0 +1,35 @@
+<%# navigation.ejs: footer navigation for dashboard layout %>
+<% 
+var navCurrent = (typeof current !== 'undefined' && current) ? current : 'dashboard';
+var isChild = user && user.role === 'child';
+var homeHref = '/dashboard';
+var homeLabel = isChild ? 'Spirit Tree' : 'Spirit Tree';
+
+// Build navigation items based on role
+var navItems = [];
+
+navItems.push({ key: 'calendar', label: 'Calendar', href: '/calendar' });
+navItems.push({ key: 'quest', label: 'Quest', href: '/quest' });
+navItems.push({ key: 'dashboard', label: homeLabel, href: homeHref });
+
+navItems.push({ key: 'shop', label: 'Shop', href: '/shop' });
+if (isChild) {
+  navItems.push({ key: 'backpack', label: 'Backpack', href: '/backpack' });
+}
+if (!isChild) {
+  navItems.push({ key: 'family', label: 'Family', href: '/family' });
+}
+
+// Don't add Profile to bottom navigation - it's in the top header now
+%>
+<nav class="w-100 px-3">
+  <div class="nav nav-pills nav-fill w-100 app-bottom-nav">
+    <% navItems.forEach(function(item) { 
+      var isActive = navCurrent === item.key; 
+    %>
+      <a class="nav-link text-center app-bottom-nav-link <%= isActive ? 'active' : '' %>" href="<%= item.href %>" <%= isActive ? 'aria-current="page"' : '' %>>
+        <%= item.label %>
+      </a>
+    <% }); %>
+  </div>
+</nav>

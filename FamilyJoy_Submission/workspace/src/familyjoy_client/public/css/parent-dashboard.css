@@ -1,0 +1,525 @@
+.fj-wish-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.fj-wish-grid-horizontal {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.fj-wish-slot {
+  position: relative;
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+  cursor: pointer;
+}
+
+.fj-wish-slot.filled {
+  border-style: solid;
+  background: #ffffff;
+}
+
+.fj-wish-slot.selected {
+  outline: 2px solid #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+.fj-wish-slot-label {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  font-family: 'Comic Sans MS', 'Segoe UI', sans-serif;
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+.fj-wish-slot-icon {
+  font-size: 1.8rem;
+  color: #0d6efd;
+}
+
+.fj-wish-slot-empty {
+  font-size: 1.4rem;
+  color: #94a3b8;
+}
+
+.fj-wish-grid-horizontal .fj-wish-slot {
+  height: 68px;
+}
+
+.fj-wish-grid-horizontal .fj-wish-slot-label {
+  font-size: 0.72rem;
+  top: 4px;
+  left: 4px;
+  padding: 1px 4px;
+}
+
+.fj-wish-grid-horizontal .fj-wish-slot-icon {
+  font-size: 1.2rem;
+}
+
+.fj-wish-grid-horizontal .fj-wish-slot-empty {
+  font-size: 1rem;
+}
+
+.all-children-spirit-viewport {
+  --parent-spirit-tree-min-height: 460px;
+  --wish-storage-bottom: 24px;
+  --wish-storage-slot-height: 34px;
+  --wish-leaf-layer-bottom: calc(var(--wish-storage-bottom) + var(--wish-storage-slot-height));
+  --wish-leaf-dock-gap: 0px;
+  --parent-wish-leaf-top: 24%;
+  --parent-wish-leaf-bottom: var(--wish-leaf-layer-bottom);
+  --parent-wish-leaf-side: 8%;
+  --parent-wish-leaf-width: 86px;
+  --parent-wish-leaf-height: 66px;
+  --parent-wish-cloud-top: var(--parent-wish-leaf-top);
+  --parent-wish-cloud-bottom: var(--parent-wish-leaf-bottom);
+  --parent-wish-cloud-side: var(--parent-wish-leaf-side);
+  --parent-wish-cloud-width: var(--parent-wish-leaf-width);
+  --parent-wish-cloud-height: var(--parent-wish-leaf-height);
+}
+
+.all-children-spirit-viewport {
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.all-children-spirit-track {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.all-children-spirit-track::-webkit-scrollbar {
+  display: none;
+}
+
+.all-children-spirit-track {
+  scrollbar-width: none;
+}
+
+.all-children-spirit-track .fj-child-spirit-card {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  min-height: var(--parent-spirit-tree-min-height);
+  height: 100%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.all-children-progress-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.all-children-progress-bar {
+  --progress-ratio: 0;
+  width: 100%;
+}
+
+.all-children-progress-track {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(122, 140, 84, 0.62);
+  border: 1px solid var(--app-btn-default-border);
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.all-children-progress-segments {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--segment-count, 1), minmax(0, 1fr));
+  gap: 3px;
+  padding: 1px 2px;
+  pointer-events: none;
+}
+
+.all-children-progress-segment {
+  border-radius: 999px;
+  background: rgba(255, 248, 236, 0.88);
+}
+
+.all-children-progress-segment.is-active {
+  background: rgba(160, 126, 62, 0.88);
+  box-shadow: inset 0 0 0 1px rgba(255, 248, 236, 0.38);
+}
+
+.all-children-nav-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.all-children-side-nav {
+  position: absolute;
+  bottom: 24px;
+  width: 20px;
+  height: 34px;
+  padding: 0;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.all-children-side-nav-left {
+  left: 6px;
+}
+
+.all-children-side-nav-right {
+  right: 6px;
+}
+
+.all-children-side-nav i {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.fj-child-spirit-tree {
+  position: relative;
+  width: 100%;
+  min-height: var(--parent-spirit-tree-min-height);
+  height: 100%;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.fj-spirit-tree-image {
+  position: relative;
+  z-index: 1;
+}
+
+.fj-child-spirit-name-overlay {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  z-index: 4;
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.fj-spirit-health-gauge {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  z-index: 4;
+  width: 142px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.fj-spirit-health-pill {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 28px;
+  align-items: center;
+  gap: 6px;
+}
+
+.fj-spirit-health-icon {
+  order: 2;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #dc2626;
+  background: rgba(255, 248, 236, 0.86);
+  border: 1px solid rgba(217, 181, 106, 0.35);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.16);
+}
+
+.fj-spirit-health-track {
+  order: 1;
+  position: relative;
+  height: 16px;
+  border-radius: 999px;
+  overflow: visible;
+  border: 1px solid rgba(217, 181, 106, 0.42);
+  background: rgba(71, 85, 105, 0.36);
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.15);
+}
+
+.fj-spirit-health-fill-yesterday,
+.fj-spirit-health-fill-today {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 999px;
+}
+
+.fj-spirit-health-fill-yesterday {
+  width: calc(var(--health-yesterday, 0) * 1%);
+  z-index: var(--health-yesterday-z, 1);
+  background: linear-gradient(90deg, #f59e0b 0%, #f97316 100%);
+}
+
+.fj-spirit-health-fill-today {
+  width: calc(var(--health-today, 0) * 1%);
+  z-index: var(--health-today-z, 1);
+  background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.fj-spirit-health-label {
+  position: absolute;
+  left: calc(var(--health-marker, 0) * 1%);
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  transform: translateX(0);
+  white-space: nowrap;
+}
+
+.fj-spirit-health-label-yesterday {
+  top: -15px;
+}
+
+.fj-spirit-health-label-today {
+  bottom: -15px;
+}
+
+.fj-spirit-health-label-text {
+  font-size: 0.6rem;
+  line-height: 1;
+  font-weight: 800;
+  color: #1f2937;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.65);
+}
+
+.fj-spirit-health-pointer {
+  width: 0;
+  height: 0;
+  display: inline-block;
+}
+
+.fj-spirit-health-pointer-down {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid #374151;
+}
+
+.fj-spirit-health-pointer-up {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid #0369a1;
+}
+
+.fj-spirit-health-meta {
+  display: none;
+  font-size: 0.62rem;
+  line-height: 1;
+  white-space: nowrap;
+  font-weight: 700;
+  color: #334155;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+
+.fj-wish-leaf-layer,
+.fj-wish-cloud-layer {
+  position: absolute;
+  top: var(--parent-wish-leaf-top);
+  bottom: var(--parent-wish-leaf-bottom);
+  left: var(--parent-wish-leaf-side);
+  right: var(--parent-wish-leaf-side);
+  z-index: 2;
+}
+
+.all-children-progress-overlay {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 10px;
+  z-index: 4;
+}
+
+.fj-wish-leaf-slot,
+.fj-wish-cloud-slot {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  top: var(--slot-top, auto);
+  right: var(--slot-right, auto);
+  bottom: var(--slot-bottom, auto);
+  left: var(--slot-left, auto);
+  transform: rotate(var(--slot-rotate, 0deg)) scale(var(--slot-scale, 1)) translateY(0);
+  transform-origin: center;
+  width: var(--parent-wish-leaf-width);
+  height: var(--parent-wish-leaf-height);
+  border-radius: 10px;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  background-image: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--slot-z, 1);
+  animation: floatWish 4.8s ease-in-out infinite;
+  animation-delay: var(--slot-delay, 0s);
+}
+
+.fj-wish-leaf-slot.is-floating,
+.fj-wish-cloud-slot.is-floating {
+  width: 78px;
+  height: 78px;
+}
+
+.fj-wish-leaf-slot:focus-visible,
+.fj-wish-cloud-slot:focus-visible {
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+.fj-wish-leaf-slot.selected,
+.fj-wish-cloud-slot.selected {
+  filter: drop-shadow(0 0 6px rgba(13, 110, 253, 0.45));
+}
+
+.fj-wish-leaf-slot.is-docked,
+.fj-wish-cloud-slot.is-docked {
+  animation: none;
+  pointer-events: none;
+  cursor: default;
+}
+
+.fj-wish-leaf-slot .fj-wish-slot-icon,
+.fj-wish-cloud-slot .fj-wish-slot-icon {
+  font-size: 1.45rem;
+}
+
+.fj-wish-leaf-slot .fj-wish-slot-empty,
+.fj-wish-cloud-slot .fj-wish-slot-empty {
+  font-size: 1.05rem;
+}
+
+.fj-wish-seed {
+  width: 72px;
+  height: 72px;
+  display: inline-block;
+  background-image: var(--asset-ui-wish-seed-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.fj-wish-leaf {
+  width: 31px;
+  height: 31px;
+  display: inline-block;
+  background-image: var(--asset-ui-wish-leaf-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@keyframes floatWish {
+  0% {
+    transform: rotate(var(--slot-rotate, 0deg)) scale(var(--slot-scale, 1)) translateY(0);
+  }
+  50% {
+    transform: rotate(var(--slot-rotate, 0deg)) scale(var(--slot-scale, 1)) translateY(-6px);
+  }
+  100% {
+    transform: rotate(var(--slot-rotate, 0deg)) scale(var(--slot-scale, 1)) translateY(0);
+  }
+}
+
+.fj-wish-storage-layer {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: var(--wish-storage-bottom);
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.fj-wish-storage-slot {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid rgba(190, 168, 120, 0.85);
+  background: rgba(255, 248, 236, 0.84);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+  border-radius: 8px;
+  min-height: var(--wish-storage-slot-height);
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.fj-wish-storage-slot:focus-visible {
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+.fj-wish-storage-slot .fj-wish-slot-icon {
+  font-size: 1.05rem;
+}
+
+.fj-wish-storage-slot .fj-wish-slot-empty {
+  font-size: 0.95rem;
+}
+
+.fj-wish-leaf-slot.is-docked,
+.fj-wish-cloud-slot.is-docked {
+  bottom: var(--wish-leaf-dock-gap) !important;
+  width: 48px;
+  height: 31px;
+  transform: translateX(-50%) rotate(var(--slot-rotate, 0deg)) scale(1) translateY(0);
+  transform-origin: center bottom;
+}
+
+.fj-wish-leaf-slot.is-docked .fj-wish-leaf,
+.fj-wish-cloud-slot.is-docked .fj-wish-leaf {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,92 @@
+﻿Issue Id,Issue Type,Summary,Description,Epic Name,Epic Link,Parent Id,Priority,Story Points,Status,Labels,Planned Sprint,Start Date,End Date
+E4-US10,Story,E4-US10 Buy essence token,,E4 Reward Shop,E4,E4,Medium,3,Planned,,Sprint 10,,
+E8-US02,Story,E8-US02 Use essence token,,E8 Backpack,E8,E8,Medium,3,Planned,,Sprint 10,,
+E9-US01,Story,E9-US01 Spend essence for wish tree health,,E9 Wish Tree Economy,E9,E9,Medium,3,Planned,,Sprint 10,,
+E9-US02,Story,E9-US02 View decay event log,,E9 Wish Tree Economy,E9,E9,Medium,3,Planned,,Sprint 10,,
+E9-US06,Story,E9-US06 Defer wish request,,E9 Wish Tree Economy,E9,E9,Medium,3,Planned,,Sprint 10,,
+E6-US16,Story,E6-US16 View user retention metrics,,Ops & Admin,E6,E6,Medium,3,Planned,,Sprint 10,,
+E4-US02,Story,E4-US02 View crystals ledger,,E4 Reward Shop,E4,E4,Medium,3,Planned,,Sprint 10,,
+E1-US01,Story,E1-US01 User can login,,Login,E1,E1,Medium,3,Done,,Sprint 1,29/09/2025,29/09/2025
+E1-US02,Story,E1-US02 User can use remember-me,,Login,E1,E1,Medium,3,Done,,Sprint 1,30/09/2025,30/09/2025
+E1-US03,Story,E1-US03 User can logout,,Login,E1,E1,Medium,3,Done,,Sprint 1,1/10/2025,2/10/2025
+E2-US01,Story,E2-US01 Create family,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,3/10/2025,3/10/2025
+E2-US16,Story,E2-US16 Generate Family Admin,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,6/10/2025,7/10/2025
+E2-US02,Story,E2-US02 Edit family name,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,8/10/2025,8/10/2025
+E2-US03,Story,E2-US03 Create parent account,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,9/10/2025,9/10/2025
+E2-US04,Story,E2-US04 Create child account,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,10/10/2025,15/10/2025
+E2-US06,Story,E2-US06 Disable a member account,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,16/10/2025,16/10/2025
+E2-US07,Story,E2-US07 Show delete countdown for disabled member,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,17/10/2025,20/10/2025
+E2-US08,Story,E2-US08 Restore member during countdown,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,21/10/2025,21/10/2025
+E2-US09,Story,E2-US09 Reset member password to default,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,22/10/2025,22/10/2025
+E2-US11,Story,E2-US11 View family members list,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,23/10/2025,24/10/2025
+E2-US17,Story,E2-US17 View member role and status,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,27/10/2025,27/10/2025
+E2-US12,Story,E2-US12 View member login credential status,,Family Management,E2,E2,Medium,3,Done,,Sprint 1,28/10/2025,31/10/2025
+E3-US01,Story,E3-US01 Create quest definition name,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 1,3/11/2025,3/11/2025
+E3-US24,Story,E3-US24 Set quest category,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 1,4/11/2025,4/11/2025
+E3-US02,Story,E3-US02 Edit quest definition,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 1,5/11/2025,6/11/2025
+E3-US03,Story,E3-US03 Archive quest definition,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 2,7/11/2025,7/11/2025
+E3-US04,Story,E3-US04 Assign quests for today,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 2,10/11/2025,11/11/2025
+E3-US05,Story,E3-US05 Assign quests for tomorrow,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 2,12/11/2025,12/11/2025
+E3-US06,Story,E3-US06 Remove assigned quest,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 2,13/11/2025,13/11/2025
+E3-US07,Story,E3-US07 Child views today quests,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 2,14/11/2025,17/11/2025
+E3-US08,Story,E3-US08 Child views tomorrow quests,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 2,18/11/2025,18/11/2025
+E3-US09,Story,E3-US09 Child submits completion request (today only),,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 2,19/11/2025,20/11/2025
+E3-US10,Story,E3-US10 Child views quest detail,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 2,21/11/2025,21/11/2025
+E3-US11,Story,E3-US11 Child submits from quest detail,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 2,24/11/2025,24/11/2025
+E5-US03,Story,E5-US03 Family Admin resets member password,,Account Security & Recovery,E5,E5,Medium,3,Done,,Sprint 2,25/11/2025,26/11/2025
+E5-US04,Story,E5-US04 Change password (self-service),,Account Security & Recovery,E5,E5,Medium,3,Done,,Sprint 2,27/11/2025,27/11/2025
+E5-US05,Story,E5-US05 Self-service username change,,Account Security & Recovery,E5,E5,Medium,3,Done,,Sprint 2,28/11/2025,1/12/2025
+E5-US06,Story,E5-US06 Self-service nickname change,,Account Security & Recovery,E5,E5,Medium,3,Done,,Sprint 2,2/12/2025,2/12/2025
+E5-US07,Story,E5-US07 View profile and account details,,Account Security & Recovery,E5,E5,Medium,3,Done,,Sprint 2,3/12/2025,4/12/2025
+E3-US25,Story,E3-US25 Set base crystals,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 3,5/12/2025,5/12/2025
+E3-US12,Story,E3-US12 Parent marks quest complete,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 3,8/12/2025,8/12/2025
+E3-US13,Story,E3-US13 Parent marks quest incomplete,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 3,9/12/2025,10/12/2025
+E4-US01,Story,E4-US01 View crystals balance,,E4 Reward Shop,E4,E4,Medium,3,Done,,Sprint 3,11/12/2025,11/12/2025
+E4-US03,Story,E4-US03 Create reward in shop,,E4 Reward Shop,E4,E4,Medium,3,Done,,Sprint 3,12/12/2025,12/12/2025
+E4-US04,Story,E4-US04 Set reward price,,E4 Reward Shop,E4,E4,Medium,3,Done,,Sprint 3,15/12/2025,16/12/2025
+E4-US05,Story,E4-US05 Activate reward,,E4 Reward Shop,E4,E4,Medium,3,Done,,Sprint 3,17/12/2025,17/12/2025
+E4-US06,Story,E4-US06 Deactivate reward,,E4 Reward Shop,E4,E4,Medium,3,Done,,Sprint 3,18/12/2025,18/12/2025
+E4-US07,Story,E4-US07 Set visible children for reward,,E4 Reward Shop,E4,E4,Medium,3,Done,,Sprint 3,19/12/2025,22/12/2025
+E4-US08,Story,E4-US08 Browse reward shop,,E4 Reward Shop,E4,E4,Medium,3,Done,,Sprint 3,23/12/2025,23/12/2025
+E8-US01,Story,E8-US01 Purchase reward into backpack,,E8 Backpack,E8,E8,Medium,3,Done,,Sprint 3,24/12/2025,25/12/2025
+E3-US18,Story,E3-US18 View daily history calendar,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 4,26/12/2025,31/12/2025
+E7-US04,Story,E7-US04 View inbox list,,Notifications,E7,E7,Medium,3,Done,,Sprint 4,1/01/2026,6/01/2026
+E9-US03,Story,E9-US03 Place reward in wish slot,,E9 Wish Tree Economy,E9,E9,Medium,3,Done,,Sprint 5,7/01/2026,8/01/2026
+E9-US04,Story,E9-US04 Submit wish request,,E9 Wish Tree Economy,E9,E9,Medium,3,Done,,Sprint 5,9/01/2026,12/01/2026
+E9-US05,Story,E9-US05 Fulfill wish request,,E9 Wish Tree Economy,E9,E9,Medium,3,Done,,Sprint 5,13/01/2026,16/01/2026
+E8-US03,Story,E8-US03 Child makes wish from backpack item,,E8 Backpack,E8,E8,Medium,3,Done,,Sprint 5,19/01/2026,20/01/2026
+E9-US07,Story,E9-US07 Parent accepts child wish,,E9 Wish Tree Economy,E9,E9,Medium,3,Done,,Sprint 5,21/01/2026,22/01/2026
+E3-US19,Story,E3-US19 Prevent duplicate reward on concurrent quest review,,Quest Lifecycle,E3,E3,High,5,Done,,Sprint 6,23/01/2026,23/01/2026
+E5-US12,Story,E5-US12 Regenerate session after register-family auto-login,,Account Security & Recovery,E5,E5,High,3,Done,,Sprint 6,26/01/2026,26/01/2026
+E5-US13,Story,E5-US13 Enforce family-scope authorization guard,,Account Security & Recovery,E5,E5,High,8,Done,,Sprint 6,27/01/2026,28/01/2026
+E6-US12,Story,E6-US12 Produce Sprint 6 as-built documentation,,Ops & Admin,E6,E6,Medium,5,Done,,Sprint 6,29/01/2026,29/01/2026
+E6-US13,Story,E6-US13 Maintain code-to-doc traceability matrix,,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 6,2/02/2026,2/02/2026
+E2-US15,Story,E2-US15 Standardize mobile app shell and navigation,,Family Management,E2,E2,Medium,5,Done,,Sprint 6,30/01/2026,30/01/2026
+E3-US20,Story,E3-US20 Optimize quest assignment with day/category filters,,Quest Lifecycle,E3,E3,Medium,5,Done,,Sprint 6,3/02/2026,3/02/2026
+E8-US04,Story,E8-US04 Add standalone child backpack page,,E8 Backpack,E8,E8,Medium,5,Done,,Sprint 6,4/02/2026,4/02/2026
+E3-US21,Story,E3-US21 Archive quest from Quest Book edit modal,,Quest Lifecycle,E3,E3,Medium,3,Done,,Sprint 6,5/02/2026,5/02/2026
+E3-US22,Story,E3-US22 Use category grid for quest assignment,,Quest Lifecycle,E3,E3,Medium,5,Done,,Sprint 6,6/02/2026,6/02/2026
+E3-US23,Story,E3-US23 Centralize quest category source of truth,,Quest Lifecycle,E3,E3,Medium,2,Done,,Sprint 6,9/02/2026,9/02/2026
+E9-US08,Story,E9-US08 Unify Spirit Tree slot layout (parent/child),,E9 Wish Tree Economy,E9,E9,Medium,3,Done,,Sprint 7,10/02/2026,10/02/2026
+E9-US09,Story,E9-US09 Parent Spirit Tree all-children carousel mode,,E9 Wish Tree Economy,E9,E9,Medium,5,Done,,Sprint 7,11/02/2026,13/02/2026
+E9-US10,Story,E9-US10 Empty wish slot opens modal with backpack deep-link,,E9 Wish Tree Economy,E9,E9,Medium,2,Done,,Sprint 7,16/02/2026,19/02/2026
+E6-US01,Story,E6-US01 System Admin login,,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 8,20/02/2026,20/02/2026
+E6-US02,Story,E6-US02 System Admin logout,,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 8,23/02/2026,23/02/2026
+E6-US03,Story,E6-US03 System Admin session management,,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 8,24/02/2026,24/02/2026
+E6-US06,Story,E6-US06 View growth metrics,,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 8,25/02/2026,25/02/2026
+E6-US07,Story,E6-US07 Browse families,,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 8,26/02/2026,26/02/2026
+E6-US08,Story,E6-US08 Filter families by name,,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 8,27/02/2026,27/02/2026
+E6-US09,Story,E6-US09 User existence lookup,,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 8,2/03/2026,2/03/2026
+E6-US11,Story,E6-US11 System Admin account provisioning,,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 8,3/03/2026,3/03/2026
+E6-US10,Story,E6-US10 View audit logs,Admin can view audit logs and query by username/family name using fuzzy filters with pagination.,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 8,4/03/2026,4/03/2026
+E6-US14,Story,E6-US14 View family detail,Admin can open family detail from families list and view member accounts.,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 8,5/03/2026,5/03/2026
+E6-US15,Story,E6-US15 View activity metrics,,Ops & Admin,E6,E6,Medium,3,Done,,Sprint 9,6/03/2026,11/03/2026
+E1,Epic,E1 Login,,E1 Login,,,,,,,,,
+E2,Epic,E2 Family Management,,E2 Family Management,,,,,,,,,
+E3,Epic,E3 Quest Lifecycle,,E3 Quest Lifecycle,,,,,,,,,
+E4,Epic,E4 Reward Shop,,E4 Reward Shop,,,,,,,,,
+E5,Epic,E5 Account Security & Recovery,,E5 Account Security & Recovery,,,,,,,,,
+E6,Epic,E6 Ops & Admin,,E6 Ops & Admin,,,,,,,,,
+E7,Epic,E7 Notifications,,E7 Notifications,,,,,,,,,
+E8,Epic,E8 Backpack,,E8 Backpack,,,,,,,,,
+E9,Epic,E9 Wish Tree Economy,,E9 Wish Tree Economy,,,,,,,,,

@@ -1,0 +1,31 @@
+# Black Box Testing Summary - Sprint 6
+
+## Purpose
+This document records the completed manual black-box testing summary for Sprint 6. Testing was performed through visible user interaction, including clicking buttons, submitting forms, navigating between pages, and verifying displayed results and state changes without checking internal code execution.
+
+## Test Scope
+The following sprint feature areas were covered during manual black-box testing:
+- Overview
+- Security And Documentation Alignment
+
+## Test Method
+- Manual UI-based black-box testing
+- Visual verification of page responses and displayed data
+- Workflow validation for main success and failure paths
+- Role and access validation where relevant
+
+## Completion Summary
+| Sprint | Feature Area | Test Type | Result | Notes |
+|---|---|---|---|---|
+| Sprint 6 | Overview | Manual black-box | Completed | OK |
+| Sprint 6 | Security And Documentation Alignment | Manual black-box | Completed | OK |
+
+## Overall Result
+- Core sprint features were manually tested through the user interface.
+- Visible outputs, navigation behavior, and expected state changes were checked.
+- No code-level or white-box testing was used in this test document.
+- This summary format is intended to record completion status at sprint level rather than detailed step-by-step case execution.
+
+## Optional Evidence
+- Add screenshots only where a visible result is important to demonstrate completion.
+- Add defect notes only if a sprint feature requires correction or retest.

@@ -1,0 +1,86 @@
+<% 
+layout = 'layouts/navigated_layout'; 
+headExtras = '<link rel="stylesheet" href="/css/profile.css">';
+%>
+
+<div class="px-3 pt-4 pb-0 h-100 d-flex flex-column overflow-hidden">
+	<div class="content-top">
+		<div class="content-header mb-3">
+			<h2 class="mb-1">My Profile</h2>
+			<p class="text-muted mb-0">Update your nickname, username, and account settings.</p>
+		</div>
+	</div>
+
+	<div class="content-body border rounded bg-body-tertiary p-3 flex-grow-1 d-flex flex-column mb-3">
+		<div class="row mb-3">
+			<label class="col-sm-3 col-form-label">Nickname</label>
+			<div class="col-sm-9">
+				<div id="nicknameDisplay" class="profile-edit-row d-flex align-items-center justify-content-between">
+					<span class="fs-5"><%= nicknameDisplay %></span>
+					<button type="button" id="editNicknameBtn" class="btn btn-sm btn-outline-primary" title="Edit Nickname">
+						<i class="bi bi-pencil"></i> Edit
+					</button>
+				</div>
+				<form id="nicknameForm" class="profile-edit-row d-none gap-2 align-items-center" method="post" action="/profile/update-nickname" novalidate>
+					<input type="text" id="nicknameInput" name="nickname" class="form-control form-control-sm flex-grow-1" value="<%= nicknameValue %>" required>
+					<button type="submit" id="confirmNicknameBtn" class="btn btn-success" title="Confirm">
+						<i class="bi bi-check-lg"></i>
+					</button>
+					<button type="button" id="cancelNicknameBtn" class="btn btn-secondary" title="Cancel">
+						<i class="bi bi-x-lg"></i>
+					</button>
+				</form>
+				<div id="nicknameAlert" class="mt-2"></div>
+			</div>
+		</div>
+
+		<hr class="my-4">
+
+		<div class="row mb-3">
+			<label class="col-sm-3 col-form-label">Username</label>
+			<div class="col-sm-9">
+				<div id="usernameDisplay" class="profile-edit-row d-flex align-items-center justify-content-between">
+					<span class="font-monospace fs-5"><%= usernameDisplay %></span>
+					<button type="button" id="editUsernameBtn" class="btn btn-sm btn-outline-primary" title="Edit Username">
+						<i class="bi bi-pencil"></i> Edit
+					</button>
+				</div>
+				<form id="usernameForm" class="profile-edit-row d-none gap-2 align-items-center" method="post" action="/profile/update-username" novalidate>
+					<div class="input-group flex-grow-1">
+						<span class="input-group-text font-monospace bg-light"><%= usernamePrefix %>_</span>
+						<input type="text" id="usernameCustomInput" name="customUsername" class="form-control form-control-sm font-monospace" value="<%= usernameCustomValue %>" pattern="[a-zA-Z0-9_]+" required>
+					</div>
+					<button type="submit" id="confirmUsernameBtn" class="btn btn-success" title="Confirm">
+						<i class="bi bi-check-lg"></i>
+					</button>
+					<button type="button" id="cancelUsernameBtn" class="btn btn-secondary" title="Cancel">
+						<i class="bi bi-x-lg"></i>
+					</button>
+				</form>
+				<div id="usernameAlert" class="mt-2"></div>
+			</div>
+		</div>
+
+		<hr class="my-4">
+
+		<dl class="row">
+			<dt class="col-sm-3">Role</dt>
+			<dd class="col-sm-9"><%= roleLabel %></dd>
+		</dl>
+
+		<div class="mt-3 py-4 d-flex flex-column align-items-center gap-2">
+			<a href="/profile/change-password" class="btn btn-warning w-100" style="max-width: 16rem;">Change Password</a>
+			<a href="/logout" class="btn btn-danger w-100" style="max-width: 16rem;">Logout</a>
+		</div>
+	</div>
+</div>
+
+<% if (showChangePasswordModal) { %>
+	<%- include('../../partials/change_password_modal', { changePassword }) %>
+<% } %>
+
+<div id="page-toast" class="d-none" data-message="<%= message || '' %>" data-error="<%= error || '' %>"></div>
+<%- include('../../partials/script', { src: '/js/pages/profile.js', type: 'module' }) %>
+
+
+

@@ -1,0 +1,13 @@
+.profile-edit-row {
+  min-height: 2.625rem;
+}
+
+#nicknameForm .btn,
+#usernameForm .btn {
+  min-width: 2.25rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.625rem;
+}

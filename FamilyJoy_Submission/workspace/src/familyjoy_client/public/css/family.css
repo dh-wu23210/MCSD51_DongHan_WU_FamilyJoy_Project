@@ -1,0 +1,10 @@
+.family-members-scroll {
+  height: 100%;
+  min-height: 0;
+}
+
+.family-action-btn {
+  width: 5rem;
+  min-width: 5rem;
+  text-align: center;
+}
