@@ -1,0 +1,28 @@
+# Environment variants
+.env.*
+!.env.example
+
+# Node.js dependencies
+node_modules/
+**/node_modules/
+
+# Android / Gradle generated files
+workspace/android/.gradle/
+workspace/android/.idea/
+workspace/android/build/
+workspace/android/app/build/
+workspace/android/capacitor-cordova-android-plugins/build/
+workspace/android/local.properties
+
+# Logs and temporary runtime files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
